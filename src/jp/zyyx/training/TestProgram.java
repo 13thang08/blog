@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class TestProgram {
 	public static void main(String[] args) {
 		ArticleService arcticleService = new FileDataService();
-		int pageIndex = 0;
+		int pageIndex = 5;
 		ArticlesList articlesList = arcticleService.showArticles(null, pageIndex);
 		System.out.println(pageIndex);
 		if (articlesList != null) {

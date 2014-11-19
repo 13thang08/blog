@@ -30,7 +30,7 @@ public class ShowArticlesServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		ArticleService arcticleService = new FileDataService();
-		int pageIndex = 0;
+		int pageIndex = 4;
 		ArticlesList articlesList = arcticleService.showArticles(null, pageIndex);
 		System.out.println(pageIndex);
 		if (articlesList != null) {

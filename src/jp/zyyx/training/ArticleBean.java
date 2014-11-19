@@ -1,7 +1,5 @@
 package jp.zyyx.training;
 
-import java.util.Date;
-
 public class ArticleBean implements java.io.Serializable {
 	/**
 	 * 
