@@ -20,4 +20,12 @@ public class ArticlesList {
 	public ArrayList<ArticleBean> getList() {
 		return list;
 	}
+	
+	public int getPageIndex() {
+		return pageIndex;
+	}
+	
+	public String getSearchText() {
+		return searchText;
+	}
 }
