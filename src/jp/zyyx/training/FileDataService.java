@@ -93,4 +93,40 @@ public class FileDataService implements ArticleService {
 		return Integer.toString(ret + 1);
 	}
 
+	@Override
+	public boolean removeArticle(String id) {
+		// TODO Auto-generated method stub
+		boolean ret = false;
+		
+		try {
+			CSVReader reader = new CSVReader(new FileReader("D:\\data.csv"));
+			CSVWriter writer = new CSVWriter(new FileWriter("D:\\temp.csv"));
+			String[] readLine;
+			while ((readLine = reader.readNext()) != null) {
+				if (readLine[0] == null || readLine[1] == null || readLine[2] == null || readLine[3] == null) {
+					System.out.println("File data error format!\n");
+					reader.close();
+					writer.close();
+					return false;
+				} else {
+					if (!readLine[0].equals(id)) {
+						writer.writeNext(readLine);
+					} else {
+						ret = true;
+					}
+				}
+			}
+			reader.close();
+			writer.close();
+			Process p = Runtime.getRuntime().exec("cmd.exe /c mv D:\\temp.csv D:\\data.csv");
+			p.waitFor();
+			return ret;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+	}
+
 }

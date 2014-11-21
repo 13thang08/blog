@@ -10,5 +10,6 @@ public class UtilityProgram {
 		article.setTitle("Salalalalal");
 		article.setContent("ddkfdakfa");
 		articleService.addArticle(article);
+		articleService.removeArticle("20");
 	}
 }
