@@ -17,38 +17,36 @@ public class FileDataService implements ArticleService {
 		try {
 			ArticlesList articlesList = new ArticlesList(searchText, pageIndex);
 
-			if (searchText == null || searchText.trim().length() == 0) {
-				CSVReader reader;
-				reader = new CSVReader(new FileReader("D:\\data.csv"));
-				int count = 0;
-				String[] nextLine;
-				while ((nextLine = reader.readNext()) != null
-						&& count < numArticlesPerPage * (pageIndex + 1)) {
-					if (count >= numArticlesPerPage * pageIndex) {
-						ArticleBean bean = new ArticleBean();
-						if (nextLine[0] == null || nextLine[1] == null || nextLine[2] == null || nextLine[3] == null) {
-							System.out.println("File format error!\n");
-							reader.close();
-							return null;
-						} else {
-							bean.setId(nextLine[0]);
-							bean.setDate(nextLine[1]);
-							bean.setTitle(nextLine[2]);
-							bean.setContent(nextLine[3]);
-						}
-						articlesList.addArticle(bean);
+			CSVReader reader;
+			reader = new CSVReader(new FileReader("D:\\data.csv"));
+			int count = 0;
+			String[] nextLine;
+			while ((nextLine = reader.readNext()) != null
+					&& count < numArticlesPerPage * (pageIndex + 1)) {
+				if (count >= numArticlesPerPage * pageIndex) {
+					ArticleBean bean = new ArticleBean();
+					if (nextLine[0] == null || nextLine[1] == null
+							|| nextLine[2] == null || nextLine[3] == null) {
+						System.out.println("File format error!\n");
+						reader.close();
+						return null;
+					} else {
+						bean.setId(nextLine[0]);
+						bean.setDate(nextLine[1]);
+						bean.setTitle(nextLine[2]);
+						bean.setContent(nextLine[3]);
 					}
-					count++;
+					articlesList.addArticle(bean);
 				}
-				reader.close();
-				return articlesList;
+				count++;
 			}
-			
-		} catch(Exception e) {
+			reader.close();
+			return articlesList;
+
+		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
-		return null;
 	}
 
 	@Override
@@ -63,22 +61,24 @@ public class FileDataService implements ArticleService {
 			entry[3] = article.getContent();
 			writer.writeNext(entry);
 			writer.close();
-			
-			Process p = Runtime.getRuntime().exec("cmd.exe /c type D:\\data.csv >> D:\\temp.csv");
+
+			Process p = Runtime.getRuntime().exec(
+					"cmd.exe /c type D:\\data.csv >> D:\\temp.csv");
 			p.waitFor();
-			p = Runtime.getRuntime().exec("cmd.exe /c mv D:\\temp.csv D:\\data.csv");
+			p = Runtime.getRuntime().exec(
+					"cmd.exe /c mv D:\\temp.csv D:\\data.csv");
 			p.waitFor();
-			
+
 			return true;
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}
-		
+
 	}
-	
-	private String getNewId(){
+
+	private String getNewId() {
 		int ret = 0;
 		try {
 			CSVReader reader = new CSVReader(new FileReader("D:\\data.csv"));
@@ -86,11 +86,11 @@ public class FileDataService implements ArticleService {
 			if ((firstLine = reader.readNext()) != null) {
 				ret = Integer.parseInt(firstLine[0]);
 			}
-			reader.close();	
+			reader.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return Integer.toString(ret+1);
+		return Integer.toString(ret + 1);
 	}
 
 }
