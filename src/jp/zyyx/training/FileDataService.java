@@ -67,13 +67,13 @@ public class FileDataService implements ArticleService {
 			final Runtime rt = Runtime.getRuntime();
 			rt.exec("cmd.exe /c type D:\\data.csv >> D:\\temp.csv");
 			rt.exec("cmd.exe /c mv D:\\temp.csv D:\\data.csv");
+			return true;
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}
 		
-		return false;
 	}
 	
 	private String getNewId(){

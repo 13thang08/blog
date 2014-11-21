@@ -7,8 +7,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="/">
-
+<form action="create-article" method="post">
+Title:<br>
+<input type="text" name="title"><br>
+Content:<br>
+<textarea rows="3" cols="20" name="content"></textarea>
+<input type="submit" value="Submit">
 </form>
 </body>
 </html>
