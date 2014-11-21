@@ -64,9 +64,11 @@ public class FileDataService implements ArticleService {
 			writer.writeNext(entry);
 			writer.close();
 			
-			final Runtime rt = Runtime.getRuntime();
-			rt.exec("cmd.exe /c type D:\\data.csv >> D:\\temp.csv");
-			rt.exec("cmd.exe /c mv D:\\temp.csv D:\\data.csv");
+			Process p = Runtime.getRuntime().exec("cmd.exe /c type D:\\data.csv >> D:\\temp.csv");
+			p.waitFor();
+			p = Runtime.getRuntime().exec("cmd.exe /c mv D:\\temp.csv D:\\data.csv");
+			p.waitFor();
+			
 			return true;
 			
 		} catch (Exception e) {
