@@ -1,7 +1,13 @@
 package jp.zyyx.training;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
+
 import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
 
 public class FileDataService implements ArticleService {
 
@@ -43,6 +49,46 @@ public class FileDataService implements ArticleService {
 			return null;
 		}
 		return null;
+	}
+
+	@Override
+	public boolean addArticle(ArticleBean article) {
+		article.setId(getNewId());
+		try {
+			CSVWriter writer = new CSVWriter(new FileWriter("D:\\temp.csv"));
+			String[] entry = new String[4];
+			entry[0] = article.getId();
+			entry[1] = article.getDate();
+			entry[2] = article.getTitle();
+			entry[3] = article.getContent();
+			writer.writeNext(entry);
+			writer.close();
+			
+			final Runtime rt = Runtime.getRuntime();
+			rt.exec("cmd.exe /c type D:\\data.csv >> D:\\temp.csv");
+			rt.exec("cmd.exe /c mv D:\\temp.csv D:\\data.csv");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+		return false;
+	}
+	
+	private String getNewId(){
+		int ret = 0;
+		try {
+			CSVReader reader = new CSVReader(new FileReader("D:\\data.csv"));
+			String[] firstLine;
+			if ((firstLine = reader.readNext()) != null) {
+				ret = Integer.parseInt(firstLine[0]);
+			}
+			reader.close();	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return Integer.toString(ret+1);
 	}
 
 }
