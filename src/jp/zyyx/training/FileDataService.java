@@ -129,4 +129,55 @@ public class FileDataService implements ArticleService {
 		
 	}
 
+	@Override
+	public boolean editArticle(ArticleBean article) {
+		// TODO Auto-generated method stub
+		boolean ret = false;
+		if (article.getId() == null || article.getDate() == null || article.getTitle() == null || article.getContent() == null) {
+			return false;
+		}
+		
+		try {
+			CSVReader reader = new CSVReader(new FileReader("D:\\data.csv"));
+			CSVWriter writer = new CSVWriter(new FileWriter("D:\\temp.csv"));
+			String[] readLine;
+			while ((readLine = reader.readNext()) != null) {
+				if(readLine[0] == null || readLine[1] == null || readLine[2] == null || readLine[3] == null) {
+					System.out.println("File data error!\n");
+				} else {
+					if (!readLine[0].equals(article.getId())) {
+						writer.writeNext(readLine);
+					} else {
+						String[] tempString = new String[4];
+						tempString[0] = article.getId();
+						tempString[1] = article.getDate();
+						tempString[2] = article.getTitle();
+						tempString[3] = article.getContent();
+						// test code
+						System.out.println(tempString[0]);
+						System.out.println(tempString[1]);
+						System.out.println(tempString[2]);
+						System.out.println(tempString[3]);
+						writer.writeNext(tempString);
+						ret = true;
+					}
+				}
+			}
+			reader.close();
+			writer.close();
+			Process p;
+			if (ret == true) {
+				p = Runtime.getRuntime().exec("cmd.exe /c mv D:\\temp.csv D:\\data.csv");
+				p.waitFor();
+			} else {
+				p = Runtime.getRuntime().exec("cmd.exe /c rm D:\\temp.csv");
+				p.waitFor();
+			}
+			return ret;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
 }

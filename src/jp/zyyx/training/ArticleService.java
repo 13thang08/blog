@@ -5,4 +5,5 @@ public interface ArticleService {
 	public ArticlesList showArticles(String searchText, int page);
 	public boolean addArticle(ArticleBean article);
 	public boolean removeArticle(String id);
+	public boolean editArticle(ArticleBean article);
 }
