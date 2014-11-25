@@ -5,22 +5,22 @@ public class ArticleBean implements java.io.Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String id = null;
+	private int id = 0;
 	private String date = null;
 	private String title = null;
 	private String content = null;
 	
 	
 	public ArticleBean() {
-		id = null;
+		id = 0;
 		date = null;
 		title = null;
 		content = null;
 	}
-	public String getId() {
+	public int getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public String getDate() {

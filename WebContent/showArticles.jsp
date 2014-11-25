@@ -15,7 +15,7 @@ if (articlesList != null) {
 	ArrayList<ArticleBean> beanList = articlesList.getList();
 	if (beanList != null) {
 		for (int i = 0; i < beanList.size(); i++) {
-			out.print(beanList.get(i).getId() + "<br>");
+			out.print(Integer.toString(beanList.get(i).getId()) + "<br>");
 			out.print(beanList.get(i).getDate() + "<br>");
 			out.print(beanList.get(i).getTitle() + "<br>");
 			out.print(beanList.get(i).getContent() + "<br>");

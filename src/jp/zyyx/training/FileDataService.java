@@ -31,7 +31,7 @@ public class FileDataService implements ArticleService {
 						reader.close();
 						return null;
 					} else {
-						bean.setId(nextLine[0]);
+						bean.setId(Integer.parseInt(nextLine[0]));
 						bean.setDate(nextLine[1]);
 						bean.setTitle(nextLine[2]);
 						bean.setContent(nextLine[3]);
@@ -55,7 +55,7 @@ public class FileDataService implements ArticleService {
 		try {
 			CSVWriter writer = new CSVWriter(new FileWriter("D:\\temp.csv"));
 			String[] entry = new String[4];
-			entry[0] = article.getId();
+			entry[0] = Integer.toString(article.getId());
 			entry[1] = article.getDate();
 			entry[2] = article.getTitle();
 			entry[3] = article.getContent();
@@ -78,7 +78,7 @@ public class FileDataService implements ArticleService {
 
 	}
 
-	private String getNewId() {
+	private int getNewId() {
 		int ret = 0;
 		try {
 			CSVReader reader = new CSVReader(new FileReader("D:\\data.csv"));
@@ -90,11 +90,11 @@ public class FileDataService implements ArticleService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return Integer.toString(ret + 1);
+		return ret+1;
 	}
 
 	@Override
-	public boolean removeArticle(String id) {
+	public boolean removeArticle(int id) {
 		// TODO Auto-generated method stub
 		boolean ret = false;
 		
@@ -109,7 +109,7 @@ public class FileDataService implements ArticleService {
 					writer.close();
 					return false;
 				} else {
-					if (!readLine[0].equals(id)) {
+					if (Integer.parseInt(readLine[0]) != id) {
 						writer.writeNext(readLine);
 					} else {
 						ret = true;
@@ -133,7 +133,7 @@ public class FileDataService implements ArticleService {
 	public boolean editArticle(ArticleBean article) {
 		// TODO Auto-generated method stub
 		boolean ret = false;
-		if (article.getId() == null || article.getDate() == null || article.getTitle() == null || article.getContent() == null) {
+		if (article.getId() == 0 || article.getDate() == null || article.getTitle() == null || article.getContent() == null) {
 			return false;
 		}
 		
@@ -145,11 +145,11 @@ public class FileDataService implements ArticleService {
 				if(readLine[0] == null || readLine[1] == null || readLine[2] == null || readLine[3] == null) {
 					System.out.println("File data error!\n");
 				} else {
-					if (!readLine[0].equals(article.getId())) {
+					if (Integer.parseInt(readLine[0]) != article.getId()) {
 						writer.writeNext(readLine);
 					} else {
 						String[] tempString = new String[4];
-						tempString[0] = article.getId();
+						tempString[0] = Integer.toString(article.getId());
 						tempString[1] = article.getDate();
 						tempString[2] = article.getTitle();
 						tempString[3] = article.getContent();
