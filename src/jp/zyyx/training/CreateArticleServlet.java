@@ -43,7 +43,7 @@ public class CreateArticleServlet extends HttpServlet {
 		String content = request.getParameter("content");
 		
 		if (title != null && content != null) {
-			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-hh.mm.ss");
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-hh:mm:ss");
 			Date date = new Date();
 			String dateString = dateFormat.format(date);
 			ArticleBean article = new ArticleBean();

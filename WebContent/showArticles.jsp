@@ -58,9 +58,7 @@ if (articlesList != null) {
 						<!-- /blog_title end -->
 						
 						<div class="blogBody">
-							<%
-							System.out.println(beanList.get(i).getContent().replaceAll("E", "<BR>"));
-							%>
+							<%=beanList.get(i).getContent().replaceAll("\n", "<BR>")%>
 						</div>
 						
 					</div>
