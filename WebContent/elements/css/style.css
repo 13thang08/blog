@@ -1,0 +1,313 @@
+@charset "utf-8";
+@import url("default.css");
+
+/* サイト大枠
+*******************************************************************************************************************/
+body {
+	margin:0;
+	font-family:"メイリオ", Meiryo, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+}
+
+/* wrap */
+#wrap {
+	width:900px;
+	margin:0 auto;
+	padding:0;
+}
+
+/* header */
+#header {
+	background:url(../img/header/header_sample.png) no-repeat;
+	padding-top:110px;
+	height:190px;
+	margin-bottom:20px;
+}
+
+#description {
+	padding-left:20px;
+	color:#fff;
+	font-size:24px;
+	font-weight:bold;
+	letter-spacing:1px;
+}
+
+#description a { text-decoration:none; color:#fff; }
+
+
+/* contentWrap */
+#contentWrap {
+	margin-bottom:20px;
+}
+
+/* content */
+#content {
+	width:580px;
+	margin:0 20px 20px 0;
+	float:left;
+}
+
+/* side */
+#side {
+	width:280px;
+	padding:0 10px 0 10px;
+	float:left;
+}
+
+/* footer */
+#footer {
+	width:100%;
+	font-size:12px;
+	text-align:center;
+	clear:both;
+	background:#f8f8f8;
+}
+
+/* コンテンツエリア
+*******************************************************************************************************************/
+
+/* newPost */
+#newPost {
+	background:#f8f8f8;
+	width:100%;
+	height:27px;
+	padding-top:3px;
+	border:1px solid #CCC;
+	margin-bottom:15px;
+}
+
+#newPost a {
+	display:block;
+	background:url(../img/btn/btn_newpost.png) no-repeat top;
+	width:102px;
+	height:20px;
+	padding-top:3px;
+	margin:0 auto;
+	text-align:center;
+	text-decoration:none;
+	color:#666;
+	font-size:12px;
+	line-height:20px;
+}
+
+#newPost a:hover {
+	background-position:bottom;
+}
+
+/* blog */
+.blog { 
+	height:auto;
+	border-bottom:1px #666 dotted;
+	margin-bottom:25px;
+}
+
+.date {
+	font-size:14px; 
+	width:80%;
+	height:25px;
+	padding:2px 0 0 10px;
+	border-left:3px solid #333;
+	float:left;
+	margin:0;
+}
+
+.editor {
+	float:right;
+	margin:0;
+}
+
+.blogTitle { margin:0 0 15px 0; }
+
+.blogTitle h1 {
+	font-size:18px; 
+	margin:0;
+	width:98%;
+	padding:4px 0 0 10px;
+	border-left:3px solid #666;
+	clear:both;
+}
+
+.blogTitle h1 span {
+	display:inline-block;
+	width:8%;
+	font-size:12px;
+	background-color:#F00;
+	color:#FFF;
+	text-align:center;
+	vertical-align:middle;
+	margin:0 0 0 5px;
+    border-radius: 4px;        /* CSS3草案 */  
+    -webkit-border-radius: 4px;    /* Safari,Google Chrome用 */  
+    -moz-border-radius: 4px;   /* Firefox用 */  
+}
+
+.blogBody {
+	font-size:13px;
+	padding:0 8px 8px 15px;
+	line-height:22px;
+	margin-bottom:15px;
+}
+
+/* サイドエリア
+*******************************************************************************************************************/
+
+.sideTitle {
+	font-size:13px;
+	font-size:14px\9;
+	width:100%;
+	border-left:3px solid #333;
+	border-bottom:1px dotted #333;
+	padding:2px 0 0 5px;
+	padding:4px 0 4px 5px\9;
+}
+
+.sideBody {
+	font-size:12px;
+	padding:15px;
+	margin-bottom:10px;
+	line-height:20px;
+}
+
+.profile { 
+	text-align:center;
+	margin:0 auto;
+}
+
+.search {
+	width:86%;
+	margin:0 auto 5px;
+}
+
+.search_text { width:150px; }
+
+.calender a {
+font-size:11px;
+}
+.calender a:visited {
+	color:#03F;
+}
+
+
+/* ページング
+*******************************************************************************************************************/
+
+.pager ul { width:55%; margin:0 auto; }
+
+.pager li {
+    display: inline;
+	font-size:14px;
+}
+ 
+.pager li span {
+    display: inline-block;
+    padding: 4px 6px;
+    border:  1px #CCCCCC solid;
+}
+ 
+.pager li span.now {
+    display:          inline-block;
+    padding:          4px 6px;
+    border:           1px #CCCCCC solid;
+    background-color: #EEEEEE;
+    font-weight:      bold;
+}
+ 
+.pager li a {
+    display: inline-block;
+    padding: 4px 6px;
+    border:  1px #CCCCCC solid;
+}
+
+.pager li a:visited {
+	color:#03F;
+}
+ 
+.pager li a:hover {
+    background-color:#666;
+    color:#ffffff;
+}
+
+
+
+
+/* 新規作成,編集ページ
+*******************************************************************************************************************/
+
+#form {
+	height:auto;
+	margin-bottom:25px;
+}
+
+#form h1 {
+	font-size:18px; 
+	margin:0;
+	width:98%;
+	padding:4px 0 0 10px;
+	margin-bottom:10px;
+	border-left:3px solid #333;
+	color:#666;
+	clear:both;
+}
+
+.postTitle {
+	width:98%;
+	height:25px;
+	margin-bottom:20px;
+	padding:3px;
+	vertical-align:middle;
+}
+
+.postContent {
+	width:98%;
+	height:120px;
+	margin-bottom:20px;
+	padding:3px;
+	line-height:20px;
+}
+
+#postBtn {
+	background:#f8f8f8;
+	width:100%;
+	height:35px;
+	border:1px solid #CCC;
+	margin-bottom:15px;
+}
+
+#postBtn ul {
+	width:40%;
+	list-style:none;
+	margin:5px auto 0;
+	padding:0;
+}
+
+#postBtn ul li { 
+	float:left;
+	margin:0 0 0 10px;
+	line-height:20px;
+}
+
+#postBtn a {
+	display:block;
+	background:url(../img/btn/btn_newpost.png) no-repeat top;
+	width:102px;
+	height:20px;
+	padding-top:3px;
+	margin:0 auto;
+	text-align:center;
+	text-decoration:none;
+	color:#666;
+	font-size:12px;
+}
+
+#postBtn a:hover {
+	background-position:bottom;
+}
+
+
+/* clearfix */
+#contentWrap:aftter {
+  content: ".";  /* 新しい要素を作る */
+  display: block;  /* ブロックレベル要素に */
+  clear: both;
+  height: 0;
+  visibility: hidden;
+}
