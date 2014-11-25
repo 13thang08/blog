@@ -1,14 +1,15 @@
 package jp.zyyx.training;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
-
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 
+/**
+ * 
+ * @author thangvm
+ *
+ */
 public class FileDataService implements ArticleService {
 
 	@Override
@@ -150,7 +151,7 @@ public class FileDataService implements ArticleService {
 					} else {
 						String[] tempString = new String[4];
 						tempString[0] = Integer.toString(article.getId());
-						tempString[1] = article.getDate();
+						tempString[1] = readLine[1];
 						tempString[2] = article.getTitle();
 						tempString[3] = article.getContent();
 						// test code

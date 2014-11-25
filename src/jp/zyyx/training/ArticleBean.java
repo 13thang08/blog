@@ -1,13 +1,24 @@
 package jp.zyyx.training;
 
+/**
+ * 記事・ビーン
+ * @author thangvm
+ *
+ */
 public class ArticleBean implements java.io.Serializable {
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
+	
+	/** 記事のId*/
 	private int id = 0;
+	
+	/** 記事の作成された時刻*/
 	private String date = null;
+	
+	/** 記事のタイトル*/
 	private String title = null;
+	
+	/** 記事の内容 */
 	private String content = null;
 	
 	

@@ -2,6 +2,11 @@ package jp.zyyx.training;
 
 import java.util.ArrayList;
 
+/**
+ * 
+ * @author thangvm
+ *
+ */
 public class ArticlesList {
 	int pageIndex;
 	String searchText;
