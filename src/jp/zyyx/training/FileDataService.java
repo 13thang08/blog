@@ -6,12 +6,18 @@ import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 
 /**
- * 
+ * ファイルとしてデータをアクセスするクラス
  * @author thangvm
  *
  */
 public class FileDataService implements ArticleService {
 
+	/**
+	 * 記事を表示するメソッド
+	 * @param searchText 検索のストリング、検索しない場合はnullになります
+	 * @param page 表示したいページ
+	 * @return 検索結果のArticlesListオブジェクト
+	 */
 	@Override
 	public ArticlesList showArticles(String searchText, int pageIndex) {
 		// TODO Auto-generated method stub
@@ -50,6 +56,12 @@ public class FileDataService implements ArticleService {
 		}
 	}
 
+	/**
+	 * 記事データに記事を追加するメソッド
+	 * @param article 追加したい記事
+	 * @return true 追加成功
+	 *         false 追加失敗
+	 */	
 	@Override
 	public boolean addArticle(ArticleBean article) {
 		article.setId(getNewId());
@@ -94,6 +106,12 @@ public class FileDataService implements ArticleService {
 		return ret+1;
 	}
 
+	/**
+	 * 記事を削除するメソッド
+	 * @param id 削除したい記事のid
+	 * @return true 削除成功
+	 *         false 削除失敗
+	 */	
 	@Override
 	public boolean removeArticle(int id) {
 		// TODO Auto-generated method stub
@@ -130,6 +148,12 @@ public class FileDataService implements ArticleService {
 		
 	}
 
+	/**
+	 * 記事を編集するメソッド
+	 * @param article 編集したい情報があるAritcleBeanオブジェクト
+	 * @return true 編集成功
+	 *         false 編集失敗
+	 */
 	@Override
 	public boolean editArticle(ArticleBean article) {
 		// TODO Auto-generated method stub
