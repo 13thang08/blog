@@ -42,4 +42,11 @@ public interface ArticleService {
 	 *         false 編集失敗
 	 */
 	public boolean editArticle(ArticleBean article);
+	
+	/**
+	 * 記事をとるメソッド
+	 * @param id 取りたい記事のid
+	 * @return idがある記事
+	 */
+	public ArticleBean getArticle(int id);
 }

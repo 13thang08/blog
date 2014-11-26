@@ -210,5 +210,45 @@ public class FileDataService implements ArticleService {
 			return false;
 		}
 	}
+	
+	/**
+	 * 記事をとるメソッド
+	 * @param id 取りたい記事のid
+	 * @return idがある記事
+	 */
+	@Override
+	public ArticleBean getArticle(int id) {
+		try {
+			boolean isExist = false;
+			ArticleBean article = new ArticleBean();
+			CSVReader reader = new CSVReader(new FileReader("D:\\data.csv"));
+			String[] readLine;
+			while ((readLine = reader.readNext()) != null) {
+				if (readLine[0] == null || readLine[1] == null || readLine[2] == null || readLine[3] == null) {
+					isExist = false;
+					break;
+				} else if (Integer.parseInt(readLine[0]) == id) {
+					article.setId(Integer.parseInt(readLine[0]));
+					article.setDate(readLine[1]);
+					article.setTitle(readLine[2]);
+					article.setContent(readLine[3]);
+					isExist = true;
+					break;
+				}
+			}
+			
+			reader.close();
+			if (isExist) {
+				return article;
+			} else {
+				return null;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
 
 }

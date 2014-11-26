@@ -5,11 +5,11 @@ import java.util.ArrayList;
 public class UtilityProgram {
 	public static void main(String[] args) {
 		ArticleService articleService = new FileDataService();
-		ArticleBean article = new ArticleBean();
-		article.setId(40);
-		article.setTitle("AAA");
-		article.setDate("2019-11-25-10.37.41");
-		article.setContent("BDFDFDFD");
-		System.out.println(articleService.addArticle(article));
+		ArticleBean article = articleService.getArticle(30);
+		System.out.println(article.getId());
+		System.out.println(article.getDate());
+		System.out.println(article.getTitle());
+		System.out.println(article.getContent());
+				
 	}
 }
