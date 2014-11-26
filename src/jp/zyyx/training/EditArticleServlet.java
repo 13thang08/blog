@@ -27,7 +27,25 @@ public class EditArticleServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+		String idString = request.getParameter("id");
+		if (idString != null) {
+			try {
+				int id = Integer.parseInt(idString);
+				ArticleService articleService = new FileDataService();
+				ArticleBean article = articleService.getArticle(id);
+				if (article != null) {
+					request.setAttribute("article", article);
+					request.getRequestDispatcher("editArticle.jsp").forward(request, response);
+				} else {
+					System.out.println("Can't find the article!\n");
+					response.sendRedirect("show-articles");
+				}
+				
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+				response.sendRedirect("show-articles");
+			}
+		}
 	}
 
 	/**
@@ -35,6 +53,37 @@ public class EditArticleServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		request.setCharacterEncoding("UTF-8");
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
+		int id;
+		try {
+			id = Integer.parseInt(request.getParameter("id"));
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+			return;
+		}
+		
+		ArticleBean article = new ArticleBean();
+		article.setTitle(title);
+		article.setContent(content);
+		article.setId(id);
+		
+		if (title.trim().length() != 0 && content.trim().length() != 0) {
+			ArticleService articleService = new FileDataService();
+			if (articleService.editArticle(article)) {
+				response.sendRedirect("show-articles");
+			} else {
+				// process for can't edit article case
+				request.setAttribute("article", article);
+				request.setAttribute("databaseError", "更新に失敗しました。");
+				request.getRequestDispatcher("editArticle.jsp").forward(request, response);
+			}
+			
+		} else {
+			request.setAttribute("article", article);
+			request.getRequestDispatcher("editArticle.jsp").forward(request, response);
+		}
 	}
 
 }

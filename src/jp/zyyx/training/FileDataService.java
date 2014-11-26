@@ -164,7 +164,7 @@ public class FileDataService implements ArticleService {
 	public boolean editArticle(ArticleBean article) {
 		// TODO Auto-generated method stub
 		boolean ret = false;
-		if (article.getId() == 0 || article.getDate() == null || article.getTitle() == null || article.getContent() == null) {
+		if (article.getId() == 0 || article.getTitle() == null || article.getContent() == null) {
 			return false;
 		}
 		
@@ -184,11 +184,6 @@ public class FileDataService implements ArticleService {
 						tempString[1] = readLine[1];
 						tempString[2] = article.getTitle();
 						tempString[3] = article.getContent();
-						// test code
-						System.out.println(tempString[0]);
-						System.out.println(tempString[1]);
-						System.out.println(tempString[2]);
-						System.out.println(tempString[3]);
 						writer.writeNext(tempString);
 						ret = true;
 					}
