@@ -6,10 +6,10 @@ public class UtilityProgram {
 	public static void main(String[] args) {
 		ArticleService articleService = new FileDataService();
 		ArticleBean article = new ArticleBean();
-		article.setId(27);
+		article.setId(40);
 		article.setTitle("AAA");
 		article.setDate("2019-11-25-10.37.41");
 		article.setContent("BDFDFDFD");
-		articleService.editArticle(article);
+		System.out.println(articleService.addArticle(article));
 	}
 }
