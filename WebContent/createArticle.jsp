@@ -27,12 +27,6 @@ databaseError = (String) request.getAttribute("databaseError");
 	
 		<!-- content start -->
 		<div id="content">
-			<!-- newPost start -->
-			<div id="newPost">
-				<a href="createArticle.jsp" title="新規作成画面へ">新規</a>
-			</div>
-			<!-- /newPost end -->
-			
 			<!-- form start -->
 				<div id="form">
 					<form action="create-article" method="post">

@@ -145,6 +145,8 @@ body {
 	padding:0 8px 8px 15px;
 	line-height:22px;
 	margin-bottom:15px;
+	/* edited by thang */
+	word-wrap: break-word;
 }
 
 /* サイドエリア
