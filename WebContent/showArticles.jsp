@@ -49,7 +49,7 @@ if (articlesList != null) {
 							<div class="entry">
 								<div class="date"><%=beanList.get(i).getDate() %></div>
 								<div class="editor">
-									<a href="edit.html" title="編集"><img src="elements/img/btn/btn_edit.png" alt="編集" border="0" /></a>
+									<a href="edit-article?id=<%=beanList.get(i).getId() %>" title="編集"><img src="elements/img/btn/btn_edit.png" alt="編集" border="0" /></a>
 									<a href="remove-article?id=<%=beanList.get(i).getId() %>" title="削除" onclick="return confirmAction()"><img src="elements/img/btn/btn_delete.png" alt="削除" border="0" /></a>
 								</div>
 							</div>
