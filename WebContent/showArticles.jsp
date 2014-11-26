@@ -50,7 +50,7 @@ if (articlesList != null) {
 								<div class="date"><%=beanList.get(i).getDate() %></div>
 								<div class="editor">
 									<a href="edit.html" title="編集"><img src="elements/img/btn/btn_edit.png" alt="編集" border="0" /></a>
-									<a href="#" title="削除"><img src="elements/img/btn/btn_delete.png" alt="削除" border="0" /></a>
+									<a href="remove-article?id=<%=beanList.get(i).getId() %>" title="削除" onclick="return confirmAction()"><img src="elements/img/btn/btn_delete.png" alt="削除" border="0" /></a>
 								</div>
 							</div>
 							
@@ -85,5 +85,12 @@ if (articlesList != null) {
 
 </div>
 <!-- /wrap end -->
+
+<script>
+function confirmAction() {
+	var confirmed = confirm("削除してもよいですか？");
+	return confirmed;
+}
+</script>
 </body>
 </html>
