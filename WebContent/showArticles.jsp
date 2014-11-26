@@ -12,9 +12,10 @@
 </head>
 
 <body>
-<%!ArrayList<ArticleBean> beanList = null; %>
+<%! ArticlesList articlesList = null;%>
+<%! ArrayList<ArticleBean> beanList = null; %>
 <%
-ArticlesList articlesList = (ArticlesList) request.getAttribute("articlesList");
+articlesList = (ArticlesList) request.getAttribute("articlesList");
 if (articlesList != null) {
 	beanList = articlesList.getList();
 }
@@ -32,7 +33,7 @@ if (articlesList != null) {
 		<div id="content">
 			<!-- newPost start -->
 			<div id="newPost">
-				<a href="post.html" title="新規作成画面へ">新規</a>
+				<a href="createArticle.jsp" title="新規作成画面へ">新規</a>
 			</div>
 			<!-- /newPost end -->
 			
@@ -70,17 +71,7 @@ if (articlesList != null) {
 			
 			<!-- end blog's content -->
 			
-			<div class="pager">
-				<ul>
-					<li><span> 前へ</span></li>
-					<li><span class="now">1</span></li>
-					<li><a href="#">2</a></li>
-					<li><a href="#">3</a></li>
-					<li><a href="#">4</a></li>
-					<li><a href="#">5</a></li>
-					<li><a href="#">次へ ></a></li>
-				</ul>
-			</div>
+			<jsp:include page="pager.jsp" />
 		
 		</div>
 		<!-- /content end -->

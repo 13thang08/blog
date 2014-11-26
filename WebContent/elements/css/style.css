@@ -302,6 +302,23 @@ font-size:11px;
 	background-position:bottom;
 }
 
+#postBtn ul li input {
+	display:block;
+	background:url(../img/btn/btn_newpost.png) no-repeat top;
+	width:102px;
+	height:23px;
+	padding-top:3px;
+	margin:0 auto;
+	text-align:center;
+	text-decoration:none;
+	color:#666;
+	font-size:12px;
+	border:none;
+}
+
+#postBtn ul li input:hover {
+	background-position:bottom;
+}
 
 /* clearfix */
 #contentWrap:aftter {
