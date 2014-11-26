@@ -64,6 +64,11 @@ public class FileDataService implements ArticleService {
 	 */	
 	@Override
 	public boolean addArticle(ArticleBean article) {
+		
+		if (getNewId() == -1) {
+			return false;
+		}
+		
 		article.setId(getNewId());
 		try {
 			CSVWriter writer = new CSVWriter(new FileWriter("D:\\temp.csv"));
@@ -100,10 +105,11 @@ public class FileDataService implements ArticleService {
 				ret = Integer.parseInt(firstLine[0]);
 			}
 			reader.close();
+			return ret+1;
 		} catch (Exception e) {
 			e.printStackTrace();
+			return -1;
 		}
-		return ret+1;
 	}
 
 	/**

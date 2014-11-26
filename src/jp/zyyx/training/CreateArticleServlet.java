@@ -56,6 +56,9 @@ public class CreateArticleServlet extends HttpServlet {
 				response.sendRedirect("show-articles");
 			} else {
 				// process for can't add article case
+				request.setAttribute("article", article);
+				request.setAttribute("databaseError", "更新に失敗しまっした。");
+				request.getRequestDispatcher("createArticle.jsp").forward(request, response);
 			}
 			
 		} else {

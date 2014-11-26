@@ -11,8 +11,10 @@
 <body>
 
 <%! ArticleBean article = null;%>
+<%! String databaseError = null; %>
 <%
 article = (ArticleBean) request.getAttribute("article");
+databaseError = (String) request.getAttribute("databaseError");
 %>
 
 <!-- wrap start -->
@@ -34,6 +36,11 @@ article = (ArticleBean) request.getAttribute("article");
 			<!-- form start -->
 				<div id="form">
 					<form action="create-article" method="post">
+						<%
+						if (databaseError != null) {
+							out.print("<div class='errMes'>" + databaseError + "</div>");
+						}
+						%>
 						<h1>記事タイトル</h1>
 						<%
 						if (article != null && article.getTitle().trim().length() == 0) {
