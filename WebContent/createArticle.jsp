@@ -10,6 +10,11 @@
 </head>
 <body>
 
+<%! ArticleBean article = null;%>
+<%
+article = (ArticleBean) request.getAttribute("article");
+%>
+
 <!-- wrap start -->
 <div id="wrap">
 
@@ -30,9 +35,30 @@
 				<div id="form">
 					<form action="create-article" method="post">
 						<h1>記事タイトル</h1>
-						<input type="text" maxlength="30" name="title" class="postTitle">	
+						<%
+						if (article != null && article.getTitle().trim().length() == 0) {
+							out.print("<div class='errMes'>* タイトルを入力してください</div>");
+						}
+						%>
+						<input type="text" maxlength="30" name="title" class="postTitle" 
+						<%
+						if (article != null) {
+							out.print("value=\"" + article.getTitle() + "\"");
+						}
+						%>
+						>	
 						<h1>記事内容</h1>
-						<textarea name="content" class="postContent"></textarea>
+						<%
+						if (article != null && article.getContent().trim().length() == 0) {
+							out.print("<div class='errMes'>* 内容を入力してください</div>");
+						}
+						%>
+						<textarea name="content" class="postContent"><%
+							if (article != null && article.getContent().trim().length() != 0) {
+								out.print(article.getContent());
+							}%></textarea>
+						
+						
 						
 						<div id="postBtn">
 							<ul>

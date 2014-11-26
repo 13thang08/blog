@@ -42,22 +42,25 @@ public class CreateArticleServlet extends HttpServlet {
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		
-		if (title != null && content != null) {
-			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-hh:mm:ss");
-			Date date = new Date();
-			String dateString = dateFormat.format(date);
-			ArticleBean article = new ArticleBean();
-			article.setDate(dateString);
-			article.setTitle(title);
-			article.setContent(content);
-			
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-hh:mm:ss");
+		Date date = new Date();
+		String dateString = dateFormat.format(date);
+		ArticleBean article = new ArticleBean();
+		article.setDate(dateString);
+		article.setTitle(title);
+		article.setContent(content);
+		
+		if (title.trim().length() != 0 && content.trim().length() != 0) {
 			ArticleService articleService = new FileDataService();
 			if (articleService.addArticle(article)) {
 				response.sendRedirect("show-articles");
+			} else {
+				// process for can't add article case
 			}
 			
 		} else {
-			System.out.println("Error content!\n");
+			request.setAttribute("article", article);
+			request.getRequestDispatcher("createArticle.jsp").forward(request, response);
 		}
 		
 	}

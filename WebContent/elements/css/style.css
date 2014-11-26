@@ -302,6 +302,7 @@ font-size:11px;
 	background-position:bottom;
 }
 
+/* by thang */
 #postBtn ul li input {
 	display:block;
 	background:url(../img/btn/btn_newpost.png) no-repeat top;
@@ -316,8 +317,14 @@ font-size:11px;
 	border:none;
 }
 
+/* by thang */
 #postBtn ul li input:hover {
 	background-position:bottom;
+}
+
+/* by thang */
+.errMes {
+	color:red;
 }
 
 /* clearfix */
