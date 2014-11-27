@@ -1,3 +1,4 @@
+<%@page import="org.apache.commons.lang3.StringEscapeUtils"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="jp.zyyx.training.*" %>
@@ -43,7 +44,7 @@ databaseError = (String) request.getAttribute("databaseError");
 						<input type="text" maxlength="30" name="title" class="postTitle" 
 						<%
 						if (article != null) {
-							out.print("value=\"" + article.getTitle() + "\"");
+							out.print("value=\"" + StringEscapeUtils.escapeHtml4(article.getTitle()) + "\"");
 						}
 						%>
 						>	
