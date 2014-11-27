@@ -1,13 +1,13 @@
 package jp.zyyx.training;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 public class UtilityProgram {
 	public static void main(String[] args) {
 		ArticleService articleService = new FileDataService();
-		ArticleBean article = new ArticleBean();
-		article.setId(29);
-		article.setDate("28");
-		article.setTitle("28");
-		article.setContent("28");
-		System.out.println(articleService.editArticle(article));	
+		for(int i = 1 ; i <= 27; i++) {
+			System.out.println(Utility.isNew(articleService.getArticle(i)));
+		}
 	}
 }
