@@ -19,18 +19,18 @@ public class FileDataService implements ArticleService {
 	 * @return 検索結果のArticlesListオブジェクト
 	 */
 	@Override
-	public ArticlesList showArticles(String searchText, int pageIndex) {
+	public ArticlesList showArticles(String searchText, int page) {
 		// TODO Auto-generated method stub
 		try {
-			ArticlesList articlesList = new ArticlesList(searchText, pageIndex);
+			ArticlesList articlesList = new ArticlesList(searchText, page);
 
 			CSVReader reader;
 			reader = new CSVReader(new FileReader("D:\\data.csv"));
 			int count = 0;
 			String[] nextLine;
 			while ((nextLine = reader.readNext()) != null
-					&& count < numArticlesPerPage * (pageIndex + 1)) {
-				if (count >= numArticlesPerPage * pageIndex) {
+					&& count < numArticlesPerPage * page) {
+				if (count >= numArticlesPerPage * (page - 1)) {
 					ArticleBean bean = new ArticleBean();
 					if (nextLine[0] == null || nextLine[1] == null
 							|| nextLine[2] == null || nextLine[3] == null) {

@@ -8,8 +8,8 @@ import java.util.ArrayList;
  *
  */
 public class ArticlesList {
-	/** 表示したいページインデックス、0から数える*/
-	int pageIndex;
+	/** 表示したいページ*/
+	int page;
 	
 	/** 検索ストリング*/
 	String searchText;
@@ -20,11 +20,11 @@ public class ArticlesList {
 	/**
 	 * コンストラクター
 	 * @param searchText 検索ストリング
-	 * @param pageIndex 表示したいページ
+	 * @param page 表示したいページ
 	 */
-	public ArticlesList(String searchText, int pageIndex) {
+	public ArticlesList(String searchText, int page) {
 		this.searchText = searchText;
-		this.pageIndex = pageIndex;
+		this.page = page;
 		list = new ArrayList<ArticleBean>();
 	}
 	
@@ -45,11 +45,11 @@ public class ArticlesList {
 	}
 	
 	/**
-	 * 表示したいページインデックスを取るメソッド
-	 * @return ページインデックス
+	 * 表示したいページを取るメソッド
+	 * @return ページ
 	 */
-	public int getPageIndex() {
-		return pageIndex;
+	public int getPage() {
+		return page;
 	}
 	
 	/**

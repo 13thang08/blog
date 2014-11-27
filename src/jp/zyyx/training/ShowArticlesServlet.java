@@ -29,18 +29,18 @@ public class ShowArticlesServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String page = request.getParameter("page");
-		int pageIndex;
+		String pageString = request.getParameter("page");
+		int page;
 		try {
-			pageIndex = Integer.parseInt(page) - 1;
+			page = Integer.parseInt(pageString);
 		} catch(NumberFormatException e) {
-			pageIndex = 0;
+			page = 1;
 		}
-		if (pageIndex < 0)
-			pageIndex = 0;
+		if (page < 1)
+			page = 1;
 		ArticleService articleService = new FileDataService();
 		ArticlesList articlesList = articleService
-				.showArticles(null, pageIndex);
+				.showArticles(null, page);
 		request.setAttribute("articlesList", articlesList);
 		request.getRequestDispatcher("/showArticles.jsp").forward(request,
 				response);
