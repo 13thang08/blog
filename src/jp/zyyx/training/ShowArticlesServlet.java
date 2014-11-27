@@ -41,6 +41,9 @@ public class ShowArticlesServlet extends HttpServlet {
 		ArticleService articleService = new FileDataService();
 		ArticlesList articlesList = articleService
 				.showArticles(null, page);
+		// test start
+		System.out.println(articlesList.getTotalPage());
+		// test end
 		request.setAttribute("articlesList", articlesList);
 		request.getRequestDispatcher("/showArticles.jsp").forward(request,
 				response);

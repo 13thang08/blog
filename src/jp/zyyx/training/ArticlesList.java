@@ -11,6 +11,9 @@ public class ArticlesList {
 	/** 表示したいページ*/
 	int page;
 	
+	/** 総ページ */
+	int totalPage;
+	
 	/** 検索ストリング*/
 	String searchText;
 	
@@ -25,6 +28,7 @@ public class ArticlesList {
 	public ArticlesList(String searchText, int page) {
 		this.searchText = searchText;
 		this.page = page;
+		totalPage = 0;
 		list = new ArrayList<ArticleBean>();
 	}
 	
@@ -58,5 +62,21 @@ public class ArticlesList {
 	 */
 	public String getSearchText() {
 		return searchText;
+	}
+	
+	/**
+	 * 総ページを取るメソッド
+	 * @return 総ページ
+	 */
+	public int getTotalPage() {
+		return totalPage;
+	}
+	
+	/**
+	 * 総ページを設定するメソッド
+	 * @param totalPage
+	 */
+	public void setTotalPage(int totalPage) {
+		this.totalPage = totalPage;
 	}
 }

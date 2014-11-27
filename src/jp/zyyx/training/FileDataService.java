@@ -28,9 +28,8 @@ public class FileDataService implements ArticleService {
 			reader = new CSVReader(new FileReader("D:\\data.csv"));
 			int count = 0;
 			String[] nextLine;
-			while ((nextLine = reader.readNext()) != null
-					&& count < numArticlesPerPage * page) {
-				if (count >= numArticlesPerPage * (page - 1)) {
+			while ((nextLine = reader.readNext()) != null) {
+				if (count >= numArticlesPerPage * (page - 1) && count < numArticlesPerPage * page) {
 					ArticleBean bean = new ArticleBean();
 					if (nextLine[0] == null || nextLine[1] == null
 							|| nextLine[2] == null || nextLine[3] == null) {
@@ -48,6 +47,7 @@ public class FileDataService implements ArticleService {
 				count++;
 			}
 			reader.close();
+			articlesList.setTotalPage((int) Math.ceil(((double) count) / numArticlesPerPage));
 			return articlesList;
 
 		} catch (Exception e) {
