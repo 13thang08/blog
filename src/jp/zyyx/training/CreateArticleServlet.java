@@ -23,7 +23,6 @@ public class CreateArticleServlet extends HttpServlet {
      */
     public CreateArticleServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -37,11 +36,11 @@ public class CreateArticleServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
+		
+		// 新しい記事Beanを作成します
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
-		
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss");
 		Date date = new Date();
 		String dateString = dateFormat.format(date);
@@ -50,18 +49,17 @@ public class CreateArticleServlet extends HttpServlet {
 		article.setTitle(title);
 		article.setContent(content);
 		
-		if (title.trim().length() != 0 && content.trim().length() != 0) {
+		if (title.trim().length() != 0 && content.trim().length() != 0) { //　タイトルと内容は正したら
 			ArticleService articleService = new FileDataService();
-			if (articleService.addArticle(article)) {
+			if (articleService.addArticle(article)) { //　追加は成功したら
 				response.sendRedirect("show-articles");
-			} else {
-				// process for can't add article case
+			} else { //　追加は失敗したら
 				request.setAttribute("article", article);
 				request.setAttribute("databaseError", "登録に失敗しました。");
 				request.getRequestDispatcher("createArticle.jsp").forward(request, response);
 			}
 			
-		} else {
+		} else { //　タイトルまたは内容は正しくなかったら
 			request.setAttribute("article", article);
 			request.getRequestDispatcher("createArticle.jsp").forward(request, response);
 		}

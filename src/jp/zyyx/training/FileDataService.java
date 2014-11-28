@@ -20,7 +20,6 @@ public class FileDataService implements ArticleService {
 	 */
 	@Override
 	public ArticlesList showArticles(String searchText, int page) {
-		// TODO Auto-generated method stub
 		try {
 			ArticlesList articlesList = new ArticlesList(searchText, page);
 
@@ -28,21 +27,27 @@ public class FileDataService implements ArticleService {
 			reader = new CSVReader(new FileReader("D:\\data.csv"));
 			int count = 0;
 			String[] nextLine;
+			
+			// データファイルを読む
 			while ((nextLine = reader.readNext()) != null) {
+				
+				// 記事は表示したいページにあったら
 				if (count >= numArticlesPerPage * (page - 1) && count < numArticlesPerPage * page) {
 					ArticleBean bean = new ArticleBean();
+					
+					// エラーハンドリング
 					if (nextLine[0] == null || nextLine[1] == null
 							|| nextLine[2] == null || nextLine[3] == null) {
 						System.out.println("File format error!\n");
 						reader.close();
 						return null;
-					} else {
+					} else { // アウトプットデータのため、Beanを作成
 						bean.setId(Integer.parseInt(nextLine[0]));
 						bean.setDate(nextLine[1]);
 						bean.setTitle(nextLine[2]);
 						bean.setContent(nextLine[3]);
 					}
-					articlesList.addArticle(bean);
+					articlesList.addArticle(bean); // リストに記事を追加する
 				}
 				count++;
 			}
@@ -65,12 +70,14 @@ public class FileDataService implements ArticleService {
 	@Override
 	public boolean addArticle(ArticleBean article) {
 		
+		// 適当なidを取れない
 		if (getNewId() == -1) {
 			return false;
 		}
 		
 		article.setId(getNewId());
 		try {
+			// 一時的なファイルに記事を書き込む
 			CSVWriter writer = new CSVWriter(new FileWriter("D:\\temp.csv"));
 			String[] entry = new String[4];
 			entry[0] = Integer.toString(article.getId());
@@ -79,7 +86,8 @@ public class FileDataService implements ArticleService {
 			entry[3] = article.getContent();
 			writer.writeNext(entry);
 			writer.close();
-
+			
+			// データファイルを更新する
 			Process p = Runtime.getRuntime().exec(
 					"cmd.exe /c type D:\\data.csv >> D:\\temp.csv");
 			p.waitFor();
@@ -95,7 +103,12 @@ public class FileDataService implements ArticleService {
 		}
 
 	}
-
+	
+	/**
+	 * 新しい記事のために、適当なidを取る
+	 * @return 適当なid
+	 *         失敗したら、‐1を返す
+	 */
 	private int getNewId() {
 		int ret = 0;
 		try {

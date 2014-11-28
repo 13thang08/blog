@@ -5,7 +5,18 @@ import java.util.Date;
 
 import jp.zyyx.training.ArticleBean;
 
+/**
+ * ユーティリティクラス
+ * @author thangvm
+ *
+ */
 public class Utility {
+	/**
+	 * 記事は新しいかどうかをチェック
+	 * @param article
+	 * @return true: 新しい
+	 *         false: 新しくない
+	 */
 	public static boolean isNew(ArticleBean article) {
 		if (article == null) return false;
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss");
@@ -14,7 +25,6 @@ public class Utility {
 		try {
 			articleDate = dateFormat.parse(article.getDate());
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}
