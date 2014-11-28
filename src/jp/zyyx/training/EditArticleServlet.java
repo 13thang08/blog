@@ -1,6 +1,9 @@
 package jp.zyyx.training;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -64,10 +67,14 @@ public class EditArticleServlet extends HttpServlet {
 			return;
 		}
 		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss");
+		Date date = new Date();
+		String dateString = dateFormat.format(date);
 		ArticleBean article = new ArticleBean();
 		article.setTitle(title);
 		article.setContent(content);
 		article.setId(id);
+		article.setDate(dateString);
 		
 		if (title.trim().length() != 0 && content.trim().length() != 0) {
 			ArticleService articleService = new FileDataService();
