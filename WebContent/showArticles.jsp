@@ -62,7 +62,7 @@ if (articlesList != null) {
 						<!-- /blog_title end -->
 						
 						<div class="blogBody">
-							<%=StringEscapeUtils.escapeHtml4(beanList.get(i).getContent().replaceAll("\n", "<BR>"))%>
+							<%=StringEscapeUtils.escapeHtml4(beanList.get(i).getContent()).replaceAll("\n", "<BR>")%>
 						</div>
 						
 					</div>
