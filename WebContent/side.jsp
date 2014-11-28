@@ -5,7 +5,7 @@
 <div id="side">
 	<div class="sideTitle">プロフィール</div>
 	<div class="sideBody">
-		<p class="profile"><img src="elements/img/profile/photo.png" /></p>
+		<p class="profile"><img src="elements/img/profile/momiji.png" /></p>
 		<p>
 			ニックネーム:福井太郎<br />
 			性別:男<br />

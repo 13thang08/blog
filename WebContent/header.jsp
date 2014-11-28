@@ -3,6 +3,6 @@
 
 <!-- header start -->
 <div id="header">
-	<p id="description"><a href="show-articles">Blog Title</a></p>
+	<p id="description"><a href="show-articles">私の日本語研修</a></p>
 </div>
 <!-- /header end -->
