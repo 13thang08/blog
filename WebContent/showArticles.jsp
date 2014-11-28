@@ -53,8 +53,11 @@ if (articlesList != null) {
 									<a href="remove-article?id=<%=beanList.get(i).getId() %>" title="削除" onclick="return confirmAction()"><img src="elements/img/btn/btn_delete.png" alt="削除" border="0" /></a>
 								</div>
 							</div>
-							
-							<h1><%=StringEscapeUtils.escapeHtml4(beanList.get(i).getTitle()) %></h1>
+							<%
+							String title = StringEscapeUtils.escapeHtml4(beanList.get(i).getTitle());
+							if (Utility.isNew(beanList.get(i))) title += "<span>NEW!</span>";
+							out.println("<h1>" + title + "</h1>");
+							%>
 						</div>
 						<!-- /blog_title end -->
 						
