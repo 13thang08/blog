@@ -36,7 +36,7 @@ public class ShowArticlesServlet extends HttpServlet {
 		}
 		if (page < 1)
 			page = 1;
-		ArticleService articleService = new FileDataService();
+		ArticleService articleService = new DatabaseService();
 		ArticlesList articlesList = articleService
 				.showArticles(null, page);
 		
