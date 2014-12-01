@@ -7,10 +7,10 @@
 	<div class="sideBody">
 		<p class="profile"><img src="elements/img/profile/momiji.png" /></p>
 		<p>
-			ニックネーム:福井太郎<br />
+			ニックネーム:タン<br />
 			性別:男<br />
-			誕生日:1993年6月10日<br />
-			血液型:AB<br />
+			誕生日:1991年8月13日<br />
+			血液型:O<br />
 			好きな言葉:
 		</p>
 	</div>

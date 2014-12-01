@@ -2,6 +2,7 @@ package jp.zyyx.training;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Properties;
@@ -76,13 +77,14 @@ public class DatabaseService implements ArticleService {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection connection = DriverManager.getConnection(mySqlUrl, userInfo);
-			Statement statement = connection.createStatement();
-			String query = "INSERT INTO articles (date, title, content) VALUES('"
-			+ article.getDate()
-			+ "', '" + article.getTitle()
-			+ "', '" + article.getContent() + "')";
-			System.out.println(query);
-			statement.executeUpdate(query);
+			
+			String query = "INSERT INTO articles (date, title, content) VALUES (?,?,?)";
+			PreparedStatement stmt = connection.prepareStatement(query);
+			stmt.setString(1, article.getDate());
+			stmt.setString(2, article.getTitle());
+			stmt.setString(3, article.getContent());
+			stmt.executeUpdate();
+			
 			connection.close();
 			return true;
 			
@@ -104,9 +106,11 @@ public class DatabaseService implements ArticleService {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection connection = DriverManager.getConnection(mySqlUrl, userInfo);
-			Statement statement = connection.createStatement();
-			String query = "DELETE FROM articles WHERE id=" + id;
-			statement.executeUpdate(query);
+			String query = "DELETE FROM articles WHERE id=?";
+			PreparedStatement stmt = connection.prepareStatement(query);
+			stmt.setInt(1, id);
+			// System.out.println(stmt.toString());
+			stmt.executeUpdate();
 			connection.close();
 			return true;
 			
@@ -127,12 +131,13 @@ public class DatabaseService implements ArticleService {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection connection = DriverManager.getConnection(mySqlUrl, userInfo);
-			Statement statement = connection.createStatement();
-			String query = "UPDATE articles SET date='" + article.getDate() + 
-					"', title='" + article.getTitle() +
-					"', content='" + article.getContent() + "' WHERE id=" + article.getId();
-			System.out.println(query);
-			statement.executeUpdate(query);
+			String query = "UPDATE articles SET date=?, title=?, content=? WHERE id=?";
+			PreparedStatement stmt = connection.prepareStatement(query);
+			stmt.setString(1, article.getDate());
+			stmt.setString(2, article.getTitle());
+			stmt.setString(3, article.getContent());
+			stmt.setInt(4, article.getId());
+			stmt.executeUpdate();
 			connection.close();
 			return true;
 		} catch (Exception e) {
@@ -151,9 +156,10 @@ public class DatabaseService implements ArticleService {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection connection = DriverManager.getConnection(mySqlUrl, userInfo);
-			Statement statement = connection.createStatement();
-			String query = "SELECT * FROM articles WHERE id=" + id;
-			ResultSet resultSet = statement.executeQuery(query);
+			String query = "SELECT * FROM articles WHERE id=?";
+			PreparedStatement stmt = connection.prepareStatement(query);
+			stmt.setInt(1, id);
+			ResultSet resultSet = stmt.executeQuery();
 			if (resultSet.next()) {
 				ArticleBean article = new ArticleBean();
 				article.setId(id);
