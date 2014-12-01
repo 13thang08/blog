@@ -3,7 +3,6 @@ package jp.zyyx.training;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
@@ -58,6 +57,7 @@ public class DatabaseService implements ArticleService {
 				 count++;
 			 }
 			 articlesList.setTotalPage((int) Math.ceil((double) count / numArticlesPerPage));
+			 connection.close();
 			 return articlesList;
 		 } catch (Exception e) {
 			 e.printStackTrace();
@@ -73,8 +73,24 @@ public class DatabaseService implements ArticleService {
 	 */
 	@Override
 	public boolean addArticle(ArticleBean article) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection connection = DriverManager.getConnection(mySqlUrl, userInfo);
+			Statement statement = connection.createStatement();
+			String query = "INSERT INTO articles (date, title, content) VALUES('"
+			+ article.getDate()
+			+ "', '" + article.getTitle()
+			+ "', '" + article.getContent() + "')";
+			System.out.println(query);
+			statement.executeUpdate(query);
+			connection.close();
+			return true;
+			
+					
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	/**
@@ -85,8 +101,19 @@ public class DatabaseService implements ArticleService {
 	 */
 	@Override
 	public boolean removeArticle(int id) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection connection = DriverManager.getConnection(mySqlUrl, userInfo);
+			Statement statement = connection.createStatement();
+			String query = "DELETE FROM articles WHERE id=" + id;
+			statement.executeUpdate(query);
+			connection.close();
+			return true;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	/**
@@ -97,8 +124,21 @@ public class DatabaseService implements ArticleService {
 	 */
 	@Override
 	public boolean editArticle(ArticleBean article) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection connection = DriverManager.getConnection(mySqlUrl, userInfo);
+			Statement statement = connection.createStatement();
+			String query = "UPDATE articles SET date='" + article.getDate() + 
+					"', title='" + article.getTitle() +
+					"', content='" + article.getContent() + "' WHERE id=" + article.getId();
+			System.out.println(query);
+			statement.executeUpdate(query);
+			connection.close();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	/**
@@ -108,8 +148,30 @@ public class DatabaseService implements ArticleService {
 	 */
 	@Override
 	public ArticleBean getArticle(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection connection = DriverManager.getConnection(mySqlUrl, userInfo);
+			Statement statement = connection.createStatement();
+			String query = "SELECT * FROM articles WHERE id=" + id;
+			ResultSet resultSet = statement.executeQuery(query);
+			if (resultSet.next()) {
+				ArticleBean article = new ArticleBean();
+				article.setId(id);
+				article.setDate(resultSet.getString("date"));
+				article.setTitle(resultSet.getString("title"));
+				article.setContent(resultSet.getString("content"));
+				connection.close();
+				return article;
+			} else {
+				connection.close();
+				return null;
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 }

@@ -50,7 +50,7 @@ public class CreateArticleServlet extends HttpServlet {
 		article.setContent(content);
 		
 		if (title.trim().length() != 0 && content.trim().length() != 0) { //　タイトルと内容は正したら
-			ArticleService articleService = new FileDataService();
+			ArticleService articleService = new DatabaseService();
 			if (articleService.addArticle(article)) { //　追加は成功したら
 				response.sendRedirect("show-articles");
 			} else { //　追加は失敗したら

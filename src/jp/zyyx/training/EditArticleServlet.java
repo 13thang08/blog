@@ -34,7 +34,7 @@ public class EditArticleServlet extends HttpServlet {
 		if (idString != null) {
 			try {
 				int id = Integer.parseInt(idString);
-				ArticleService articleService = new FileDataService();
+				ArticleService articleService = new DatabaseService();
 				ArticleBean article = articleService.getArticle(id);
 				if (article != null) {
 					request.setAttribute("article", article);
@@ -77,7 +77,7 @@ public class EditArticleServlet extends HttpServlet {
 		article.setDate(dateString);
 		
 		if (title.trim().length() != 0 && content.trim().length() != 0) {
-			ArticleService articleService = new FileDataService();
+			ArticleService articleService = new DatabaseService();
 			if (articleService.editArticle(article)) {
 				response.sendRedirect("show-articles");
 			} else {
