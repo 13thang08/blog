@@ -19,7 +19,7 @@ public class Utility {
 	 */
 	public static boolean isNew(ArticleBean article) {
 		if (article == null) return false;
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss");
+		SimpleDateFormat dateFormat = new SimpleDateFormat(ArticleService.dateFormat);
 		Date current = new Date();
 		Date articleDate;
 		try {

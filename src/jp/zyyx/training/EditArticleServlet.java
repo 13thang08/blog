@@ -67,7 +67,7 @@ public class EditArticleServlet extends HttpServlet {
 			return;
 		}
 		
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss");
+		SimpleDateFormat dateFormat = new SimpleDateFormat(ArticleService.dateFormat);
 		Date date = new Date();
 		String dateString = dateFormat.format(date);
 		ArticleBean article = new ArticleBean();

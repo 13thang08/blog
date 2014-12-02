@@ -12,6 +12,11 @@ public interface ArticleService {
 	public static final int numArticlesPerPage = 5;
 	
 	/**
+	 * 時刻フォマット
+	 */
+	public static final String dateFormat = "yyyy-MM-dd-HH:mm:ss";
+	
+	/**
 	 * 記事を表示するメソッド
 	 * @param searchText 検索のストリング、検索しない場合はnullになります
 	 * @param page 表示したいページ

@@ -12,7 +12,7 @@ public class CreateData {
 		// TODO Auto-generated method stub
 		CSVWriter writer = new CSVWriter(new FileWriter("D:\\data.csv"));
 		String[] entries = new String[4];
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss");
+		DateFormat dateFormat = new SimpleDateFormat(ArticleService.dateFormat);
 		
 		for (int id = 30; id > 0; id--) {
 			//Thread.sleep(3000);

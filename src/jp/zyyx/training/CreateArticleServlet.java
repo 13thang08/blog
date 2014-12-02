@@ -41,7 +41,7 @@ public class CreateArticleServlet extends HttpServlet {
 		// 新しい記事Beanを作成します
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss");
+		DateFormat dateFormat = new SimpleDateFormat(ArticleService.dateFormat);
 		Date date = new Date();
 		String dateString = dateFormat.format(date);
 		ArticleBean article = new ArticleBean();
