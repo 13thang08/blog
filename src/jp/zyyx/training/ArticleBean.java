@@ -4,6 +4,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.apache.commons.lang3.StringEscapeUtils;
+
 /**
  * 記事・ビーン
  * @author thangvm
@@ -24,7 +26,6 @@ public class ArticleBean implements java.io.Serializable {
 	
 	/** 記事の内容 */
 	private String content = null;
-	
 	
 	public ArticleBean() {
 		id = 0;
@@ -62,7 +63,7 @@ public class ArticleBean implements java.io.Serializable {
 	 * @return true 新しい
 	 *         false 新しくない
 	 */
-	public boolean isNew() {
+	public boolean isNewArticle() {
 		SimpleDateFormat dateFormat = new SimpleDateFormat(ArticleService.dateFormat);
 		Date current = new Date();
 		Date articleDate;
@@ -73,5 +74,12 @@ public class ArticleBean implements java.io.Serializable {
 			return false;
 		}
 		return Math.abs(current.getTime() - articleDate.getTime()) < (1000 * 3600 * 24 * 2) ? true : false;
+	}
+	
+	/**
+	 * 
+	 */
+	public String getContentEscapeHtml() {
+		return StringEscapeUtils.escapeHtml4(content).replaceAll("\n", "<BR>");
 	}
 }
