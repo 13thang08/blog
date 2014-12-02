@@ -1,5 +1,9 @@
 package jp.zyyx.training;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * 記事・ビーン
  * @author thangvm
@@ -53,4 +57,21 @@ public class ArticleBean implements java.io.Serializable {
 		this.content = content;
 	}
 	
+	/**
+	 * 記事が新しいかどうかをチェック
+	 * @return true 新しい
+	 *         false 新しくない
+	 */
+	public boolean isNew() {
+		SimpleDateFormat dateFormat = new SimpleDateFormat(ArticleService.dateFormat);
+		Date current = new Date();
+		Date articleDate;
+		try {
+			articleDate = dateFormat.parse(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return Math.abs(current.getTime() - articleDate.getTime()) < (1000 * 3600 * 24 * 2) ? true : false;
+	}
 }

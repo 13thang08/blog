@@ -55,7 +55,7 @@ if (articlesList != null) {
 							</div>
 							<%
 							String title = StringEscapeUtils.escapeHtml4(beanList.get(i).getTitle());
-							if (Utility.isNew(beanList.get(i))) title += "<span>NEW!</span>";
+							if (beanList.get(i).isNew()) title += "<span>NEW!</span>";
 							out.println("<h1>" + title + "</h1>");
 							%>
 						</div>
