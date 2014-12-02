@@ -40,10 +40,20 @@ public class DatabaseService implements ArticleService {
 			 ArticlesList articlesList = new ArticlesList(searchText, page);
 			 
 			 // get resultSet with searchText
-			 String query = "SELECT * FROM articles ORDER BY date DESC";
-			 Statement statement = connection.createStatement();
-			 ResultSet resultSet = statement.executeQuery(query);
-			 
+			 String query;
+			 PreparedStatement stmt;
+			 if (searchText == null || searchText.trim().length() == 0) {
+				 query = "SELECT * FROM articles ORDER BY date DESC";
+				 stmt = connection.prepareStatement(query);
+			 } else {
+				 query = "SELECT * FROM articles WHERE title like ? OR content like ? ORDER BY date DESC";
+				 stmt = connection.prepareStatement(query);
+				 stmt.setString(1, "%" + searchText.trim() + "%");
+				 stmt.setString(2, "%" + searchText.trim() + "%");
+				 
+			 }
+			 System.out.println(stmt.toString());
+			 ResultSet resultSet = stmt.executeQuery();
 			 // output ArticlesList from result, using page parameter
 			 int count = 0;
 			 while (resultSet.next()) {
