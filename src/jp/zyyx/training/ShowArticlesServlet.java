@@ -28,6 +28,7 @@ public class ShowArticlesServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String pageString = request.getParameter("page");
+		String searchText = request.getParameter("searchText");
 		int page;
 		try {
 			page = Integer.parseInt(pageString);
@@ -38,7 +39,7 @@ public class ShowArticlesServlet extends HttpServlet {
 			page = 1;
 		ArticleService articleService = new DatabaseService();
 		ArticlesList articlesList = articleService
-				.showArticles(null, page);
+				.showArticles(searchText, page);
 		
 		request.setAttribute("articlesList", articlesList);
 		request.getRequestDispatcher("/showArticles.jsp").forward(request,

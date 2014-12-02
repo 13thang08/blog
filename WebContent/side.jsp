@@ -1,6 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="jp.zyyx.training.*"%>
 
+<%! ArticlesList articlesList = null;%>
+<%! String searchText = null; %>
+<%
+articlesList = (ArticlesList) request.getAttribute("articlesList");
+if (articlesList != null) {
+	searchText = articlesList.getSearchText();
+}
+%>
 <!-- side start -->
 <div id="side">
 	<div class="sideTitle">プロフィール</div>
@@ -18,8 +27,10 @@
 	<div class="sideTitle">サイト内検索</div>
 	<div class="sideBody">
 		<div class="search">
-			<input type="text" name="" class="search_text">
-			<input type="submit" value="検索">
+			<form action="show-articles">
+				<input type="text" name="searchText" <%if (searchText != null) {out.println("value=" + "'" + searchText + "'");} %>class="search_text">
+				<input type="submit" value="検索">
+			</form>
 		</div>
 	</div>
 	
