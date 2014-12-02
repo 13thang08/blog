@@ -57,7 +57,7 @@ public class DatabaseService implements ArticleService {
 			 // output ArticlesList from result, using page parameter
 			 int count = 0;
 			 while (resultSet.next()) {
-				 if (count >= numArticlesPerPage * (page - 1) && count <= numArticlesPerPage * page) {
+				 if (count >= numArticlesPerPage * (page - 1) && count < numArticlesPerPage * page) {
 					 ArticleBean bean = new ArticleBean();
 					 bean.setId(resultSet.getInt("id"));
 					 bean.setDate(resultSet.getString("date"));
