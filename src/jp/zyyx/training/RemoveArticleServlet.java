@@ -29,7 +29,7 @@ public class RemoveArticleServlet extends HttpServlet {
 		String idString = request.getParameter("id");
 		try {
 			int id = Integer.parseInt(idString);
-			ArticleService articleService = new DatabaseService();
+			ArticleService articleService = ServiceFactory.getService();
 			if (articleService != null) {
 				articleService.removeArticle(id);
 			}

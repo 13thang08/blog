@@ -42,7 +42,7 @@ public class ShowArticlesServlet extends HttpServlet {
 		}
 		if (page < 1)
 			page = 1;
-		ArticleService articleService = new DatabaseService();
+		ArticleService articleService = ServiceFactory.getService();
 		ArticlesList articlesList = articleService
 				.showArticles(searchText, page);
 		
