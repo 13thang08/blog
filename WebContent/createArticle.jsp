@@ -30,16 +30,20 @@
 						
 						<h1>記事タイトル</h1>
 						
-						<c:if test="${empty article.title }">
-							<div class='errMes'>* タイトルを入力してください</div>
+						<c:if test="${!empty article }">
+							<c:if test="${empty article.title }">
+								<div class='errMes'>* タイトルを入力してください</div>
+							</c:if>
 						</c:if>
 						
 						<input type="text" maxlength="30" name="title" class="postTitle" value="<c:out value="${article.title }"></c:out>">	
 						
 						<h1>記事内容</h1>
 						
-						<c:if test="${empty article.content }">
-							<div class='errMes'>* 内容を入力してください</div>
+						<c:if test="${!empty article }">
+							<c:if test="${empty article.content }">
+								<div class='errMes'>* 内容を入力してください</div>
+							</c:if>
 						</c:if>
 						
 						<textarea name="content" class="postContent">${article.content }</textarea>
