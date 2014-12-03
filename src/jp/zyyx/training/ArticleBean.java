@@ -77,7 +77,8 @@ public class ArticleBean implements java.io.Serializable {
 	}
 	
 	/**
-	 * 
+	 * HTMLページで表示するために正しくフォマットのストリングを取る
+	 * @return
 	 */
 	public String getContentEscapeHtml() {
 		return StringEscapeUtils.escapeHtml4(content).replaceAll("\n", "<BR>");

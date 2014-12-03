@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.Properties;
 
 /**
@@ -13,11 +12,17 @@ import java.util.Properties;
  *
  */
 public class DatabaseService implements ArticleService {
+	
+	/** データベースのURL */
 	String mySqlUrl;
+	
+	/** データベースにアクセス出来るユーザ情報 */
 	Properties userInfo;
 	
 	
-
+	/**
+	 * データベースのURLとユーザ情報を初期化
+	 */
 	public DatabaseService() {
 		mySqlUrl = "jdbc:mysql://localhost:3306/blog";
 		userInfo = new Properties();
@@ -42,14 +47,14 @@ public class DatabaseService implements ArticleService {
 			 // get resultSet with searchText
 			 String query;
 			 PreparedStatement stmt;
-			 if (searchText == null || searchText.trim().length() == 0) {
+			 if (searchText == null) {
 				 query = "SELECT * FROM articles ORDER BY date DESC";
 				 stmt = connection.prepareStatement(query);
 			 } else {
 				 query = "SELECT * FROM articles WHERE title like ? OR content like ? ORDER BY date DESC";
 				 stmt = connection.prepareStatement(query);
-				 stmt.setString(1, "%" + searchText.trim() + "%");
-				 stmt.setString(2, "%" + searchText.trim() + "%");
+				 stmt.setString(1, "%" + searchText + "%");
+				 stmt.setString(2, "%" + searchText + "%");
 				 
 			 }
 			 System.out.println(stmt.toString());

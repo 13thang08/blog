@@ -29,6 +29,11 @@ public class ShowArticlesServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		String pageString = request.getParameter("page");
 		String searchText = request.getParameter("searchText");
+		
+		if ("".equals(searchText)) {
+			searchText = null;
+		}
+		
 		int page;
 		try {
 			page = Integer.parseInt(pageString);
