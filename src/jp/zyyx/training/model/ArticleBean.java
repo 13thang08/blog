@@ -66,7 +66,7 @@ public class ArticleBean implements java.io.Serializable {
 	public boolean isNewArticle() {
 		SimpleDateFormat dateFormat = new SimpleDateFormat(ArticleService.dateFormat);
 		Date current = new Date();
-		Date articleDate;
+		Date articleDate = null;
 		try {
 			articleDate = dateFormat.parse(date);
 		} catch (ParseException e) {

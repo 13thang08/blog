@@ -25,7 +25,7 @@ public class FileDataService implements ArticleService {
 	public ArticlesList showArticles(String searchText, int page) {
 		ArticlesList articlesList = new ArticlesList(searchText, page);
 
-		CSVReader reader;
+		CSVReader reader = null;
 		try {
 			reader = new CSVReader(new FileReader("D:\\data.csv"));
 		} catch (FileNotFoundException e) {
@@ -34,7 +34,7 @@ public class FileDataService implements ArticleService {
 		}
 		
 		int count = 0;
-		String[] nextLine;
+		String[] nextLine = null;
 		try {
 			// データファイルを読む
 			while ((nextLine = reader.readNext()) != null) {
@@ -91,7 +91,7 @@ public class FileDataService implements ArticleService {
 		}
 		
 		article.setId(getNewId());
-		CSVWriter writer;
+		CSVWriter writer = null;
 		try {
 			writer = new CSVWriter(new FileWriter("D:\\temp.csv"));
 		} catch (IOException e) {
@@ -136,7 +136,7 @@ public class FileDataService implements ArticleService {
 	 */
 	private int getNewId() {
 		int ret = 0;
-		CSVReader reader;
+		CSVReader reader = null;
 		try {
 			reader = new CSVReader(new FileReader("D:\\data.csv"));
 		} catch (FileNotFoundException e) {
@@ -144,7 +144,7 @@ public class FileDataService implements ArticleService {
 			return -1;
 		}
 
-		String[] firstLine;
+		String[] firstLine = null;
 		try {
 			if ((firstLine = reader.readNext()) != null) {
 				ret = Integer.parseInt(firstLine[0]);
@@ -174,8 +174,8 @@ public class FileDataService implements ArticleService {
 		// TODO Auto-generated method stub
 		boolean ret = false;
 		
-		CSVReader reader;
-		CSVWriter writer;
+		CSVReader reader = null;
+		CSVWriter writer = null;
 		
 		try {
 			reader = new CSVReader(new FileReader("D:\\data.csv"));
@@ -185,7 +185,7 @@ public class FileDataService implements ArticleService {
 			return false;
 		}
 		
-		String[] readLine;
+		String[] readLine = null;
 		try {
 			while ((readLine = reader.readNext()) != null) {
 				if (readLine[0] == null || readLine[1] == null || readLine[2] == null || readLine[3] == null) {
@@ -249,7 +249,7 @@ public class FileDataService implements ArticleService {
 	 */
 	@Override
 	public ArticleBean getArticle(int id) {
-		CSVReader reader;
+		CSVReader reader = null;
 		try {
 			reader = new CSVReader(new FileReader("D:\\data.csv"));
 		} catch (FileNotFoundException e) {
@@ -260,7 +260,7 @@ public class FileDataService implements ArticleService {
 		boolean isExist = false;
 		ArticleBean article = new ArticleBean();
 
-		String[] readLine;
+		String[] readLine = null;
 		try {
 			while ((readLine = reader.readNext()) != null) {
 				if (readLine[0] == null || readLine[1] == null

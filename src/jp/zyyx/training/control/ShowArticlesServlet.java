@@ -36,7 +36,7 @@ public class ShowArticlesServlet extends HttpServlet {
 		String pageString = Utility.preprocessingString(request.getParameter("page"));
 		String searchText = Utility.preprocessingString(request.getParameter("searchText"));
 		
-		int page;
+		int page = 0;
 		try {
 			page = Integer.parseInt(pageString);
 		} catch(NumberFormatException e) {
