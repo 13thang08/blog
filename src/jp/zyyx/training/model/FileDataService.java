@@ -1,7 +1,10 @@
 package jp.zyyx.training.model;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
+
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 
@@ -20,26 +23,31 @@ public class FileDataService implements ArticleService {
 	 */
 	@Override
 	public ArticlesList showArticles(String searchText, int page) {
-		try {
-			ArticlesList articlesList = new ArticlesList(searchText, page);
+		ArticlesList articlesList = new ArticlesList(searchText, page);
 
-			CSVReader reader;
+		CSVReader reader;
+		try {
 			reader = new CSVReader(new FileReader("D:\\data.csv"));
-			int count = 0;
-			String[] nextLine;
-			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+		int count = 0;
+		String[] nextLine;
+		try {
 			// データファイルを読む
 			while ((nextLine = reader.readNext()) != null) {
-				
+
 				// 記事は表示したいページにあったら
-				if (count >= numArticlesPerPage * (page - 1) && count < numArticlesPerPage * page) {
+				if (count >= numArticlesPerPage * (page - 1)
+						&& count < numArticlesPerPage * page) {
 					ArticleBean bean = new ArticleBean();
-					
+
 					// エラーハンドリング
 					if (nextLine[0] == null || nextLine[1] == null
 							|| nextLine[2] == null || nextLine[3] == null) {
 						System.out.println("File format error!\n");
-						reader.close();
 						return null;
 					} else { // アウトプットデータのため、Beanを作成
 						bean.setId(Integer.parseInt(nextLine[0]));
@@ -51,14 +59,24 @@ public class FileDataService implements ArticleService {
 				}
 				count++;
 			}
-			reader.close();
-			articlesList.setTotalPage((int) Math.ceil(((double) count) / numArticlesPerPage));
-			return articlesList;
-
-		} catch (Exception e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 			return null;
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			try {
+				reader.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
+
+		articlesList.setTotalPage((int) Math.ceil(((double) count)
+				/ numArticlesPerPage));
+		return articlesList;
+
 	}
 
 	/**
@@ -69,24 +87,35 @@ public class FileDataService implements ArticleService {
 	 */	
 	@Override
 	public boolean addArticle(ArticleBean article) {
-		
 		// 適当なidを取れない
 		if (getNewId() == -1) {
 			return false;
 		}
 		
 		article.setId(getNewId());
+		CSVWriter writer;
 		try {
-			// 一時的なファイルに記事を書き込む
-			CSVWriter writer = new CSVWriter(new FileWriter("D:\\temp.csv"));
-			String[] entry = new String[4];
-			entry[0] = Integer.toString(article.getId());
-			entry[1] = article.getDate();
-			entry[2] = article.getTitle();
-			entry[3] = article.getContent();
-			writer.writeNext(entry);
+			writer = new CSVWriter(new FileWriter("D:\\temp.csv"));
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	
+		// 一時的なファイルに記事を書き込む
+		String[] entry = new String[4];
+		entry[0] = Integer.toString(article.getId());
+		entry[1] = article.getDate();
+		entry[2] = article.getTitle();
+		entry[3] = article.getContent();
+		writer.writeNext(entry);
+
+		try {
 			writer.close();
-			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		try {
 			// データファイルを更新する
 			Process p = Runtime.getRuntime().exec(
 					"cmd.exe /c type D:\\data.csv >> D:\\temp.csv");
@@ -94,34 +123,50 @@ public class FileDataService implements ArticleService {
 			p = Runtime.getRuntime().exec(
 					"cmd.exe /c mv D:\\temp.csv D:\\data.csv");
 			p.waitFor();
-
-			return true;
-
-		} catch (Exception e) {
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		} catch (InterruptedException e) {
 			e.printStackTrace();
 			return false;
 		}
-
+		return true;
 	}
 	
 	/**
 	 * 新しい記事のために、適当なidを取る
-	 * @return 適当なid
-	 *         失敗したら、‐1を返す
+	 * 
+	 * @return 適当なid 失敗したら、‐1を返す
 	 */
 	private int getNewId() {
 		int ret = 0;
+		CSVReader reader;
 		try {
-			CSVReader reader = new CSVReader(new FileReader("D:\\data.csv"));
-			String[] firstLine;
+			reader = new CSVReader(new FileReader("D:\\data.csv"));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return -1;
+		}
+
+		String[] firstLine;
+		try {
 			if ((firstLine = reader.readNext()) != null) {
 				ret = Integer.parseInt(firstLine[0]);
 			}
-			reader.close();
-			return ret+1;
-		} catch (Exception e) {
+			return ret + 1;
+		} catch (IOException e) {
 			e.printStackTrace();
 			return -1;
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+			return -1;
+		} finally {
+			try {
+				reader.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+				return -1;
+			}
 		}
 	}
 
@@ -136,16 +181,24 @@ public class FileDataService implements ArticleService {
 		// TODO Auto-generated method stub
 		boolean ret = false;
 		
+		CSVReader reader;
+		CSVWriter writer;
+		
 		try {
-			CSVReader reader = new CSVReader(new FileReader("D:\\data.csv"));
-			CSVWriter writer = new CSVWriter(new FileWriter("D:\\temp.csv"));
-			String[] readLine;
+			reader = new CSVReader(new FileReader("D:\\data.csv"));
+			writer = new CSVWriter(new FileWriter("D:\\temp.csv"));
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+		String[] readLine;
+		try {
 			while ((readLine = reader.readNext()) != null) {
 				if (readLine[0] == null || readLine[1] == null || readLine[2] == null || readLine[3] == null) {
 					System.out.println("File data error format!\n");
-					reader.close();
-					writer.close();
-					return false;
+					ret = false;
+					break;
 				} else {
 					if (Integer.parseInt(readLine[0]) != id) {
 						writer.writeNext(readLine);
@@ -154,17 +207,30 @@ public class FileDataService implements ArticleService {
 					}
 				}
 			}
-			reader.close();
-			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+			ret = false;
+		} finally {
+			try {
+				reader.close();
+				writer.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+				ret = false;
+			}
+		}
+			
+		try {
 			Process p = Runtime.getRuntime().exec("cmd.exe /c mv D:\\temp.csv D:\\data.csv");
 			p.waitFor();
-			return ret;
-			
-		} catch (Exception e) {
+		} catch (IOException e) {
 			e.printStackTrace();
-			return false;
+			ret = false;
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+			ret = false;
 		}
-		
+		return ret;
 	}
 
 	/**
@@ -193,13 +259,22 @@ public class FileDataService implements ArticleService {
 	 */
 	@Override
 	public ArticleBean getArticle(int id) {
+		CSVReader reader;
 		try {
-			boolean isExist = false;
-			ArticleBean article = new ArticleBean();
-			CSVReader reader = new CSVReader(new FileReader("D:\\data.csv"));
-			String[] readLine;
+			reader = new CSVReader(new FileReader("D:\\data.csv"));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		}
+
+		boolean isExist = false;
+		ArticleBean article = new ArticleBean();
+
+		String[] readLine;
+		try {
 			while ((readLine = reader.readNext()) != null) {
-				if (readLine[0] == null || readLine[1] == null || readLine[2] == null || readLine[3] == null) {
+				if (readLine[0] == null || readLine[1] == null
+						|| readLine[2] == null || readLine[3] == null) {
 					isExist = false;
 					break;
 				} else if (Integer.parseInt(readLine[0]) == id) {
@@ -211,19 +286,21 @@ public class FileDataService implements ArticleService {
 					break;
 				}
 			}
-			
-			reader.close();
 			if (isExist) {
 				return article;
 			} else {
 				return null;
 			}
-			
-		} catch (Exception e) {
+
+		} catch (IOException e) {
 			e.printStackTrace();
 			return null;
+		} finally {
+			try {
+				reader.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
-		
 	}
-
 }
