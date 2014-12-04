@@ -81,6 +81,6 @@ public class ArticleBean implements java.io.Serializable {
 	 * @return
 	 */
 	public String getContentEscapeHtml() {
-		return StringEscapeUtils.escapeHtml4(content).replaceAll("\n", "<BR>");
+		return StringEscapeUtils.escapeHtml4(content).replaceAll("(\r\n|\n)", "<BR>");
 	}
 }
