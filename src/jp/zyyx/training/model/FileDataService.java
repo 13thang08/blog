@@ -62,14 +62,12 @@ public class FileDataService implements ArticleService {
 		} catch (IOException e) {
 			e.printStackTrace();
 			return null;
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-			return null;
 		} finally {
 			try {
 				reader.close();
 			} catch (IOException e) {
 				e.printStackTrace();
+				return null;
 			}
 		}
 
@@ -113,6 +111,7 @@ public class FileDataService implements ArticleService {
 			writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();
+			return false;
 		}
 		
 		try {
@@ -123,10 +122,7 @@ public class FileDataService implements ArticleService {
 			p = Runtime.getRuntime().exec(
 					"cmd.exe /c mv D:\\temp.csv D:\\data.csv");
 			p.waitFor();
-		} catch (IOException e) {
-			e.printStackTrace();
-			return false;
-		} catch (InterruptedException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}
@@ -155,9 +151,6 @@ public class FileDataService implements ArticleService {
 			}
 			return ret + 1;
 		} catch (IOException e) {
-			e.printStackTrace();
-			return -1;
-		} catch (NumberFormatException e) {
 			e.printStackTrace();
 			return -1;
 		} finally {
@@ -209,26 +202,23 @@ public class FileDataService implements ArticleService {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-			ret = false;
+			return false;
 		} finally {
 			try {
 				reader.close();
 				writer.close();
 			} catch (IOException e) {
 				e.printStackTrace();
-				ret = false;
+				return false;
 			}
 		}
 			
 		try {
 			Process p = Runtime.getRuntime().exec("cmd.exe /c mv D:\\temp.csv D:\\data.csv");
 			p.waitFor();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-			ret = false;
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-			ret = false;
+			return false;
 		}
 		return ret;
 	}
@@ -300,6 +290,7 @@ public class FileDataService implements ArticleService {
 				reader.close();
 			} catch (IOException e) {
 				e.printStackTrace();
+				return null;
 			}
 		}
 	}
