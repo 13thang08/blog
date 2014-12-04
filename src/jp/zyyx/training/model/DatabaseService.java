@@ -96,7 +96,9 @@ public class DatabaseService implements ArticleService {
 			e.printStackTrace();
 			return null;
 		} finally {
-			Utility.closeJDBCResources(connection, stmt, resultSet);
+			Utility.closeJDBCResources(connection);
+			Utility.closeJDBCResources(stmt);
+			Utility.closeJDBCResources(resultSet);
 		}
 	}
 
@@ -131,7 +133,8 @@ public class DatabaseService implements ArticleService {
 			e.printStackTrace();
 			return false;
 		} finally {
-			Utility.closeJDBCResources(connection, stmt, null);
+			Utility.closeJDBCResources(connection);
+			Utility.closeJDBCResources(stmt);
 		}
 	}
 
@@ -165,7 +168,8 @@ public class DatabaseService implements ArticleService {
 			e.printStackTrace();
 			return false;
 		} finally {
-			Utility.closeJDBCResources(connection, stmt, null);
+			Utility.closeJDBCResources(connection);
+			Utility.closeJDBCResources(stmt);
 		}
 	}
 
@@ -201,7 +205,8 @@ public class DatabaseService implements ArticleService {
 			e.printStackTrace();
 			return false;
 		} finally {
-			Utility.closeJDBCResources(connection, stmt, null);
+			Utility.closeJDBCResources(connection);
+			Utility.closeJDBCResources(stmt);
 		}
 	}
 
@@ -243,7 +248,9 @@ public class DatabaseService implements ArticleService {
 			e.printStackTrace();
 			return null;
 		} finally {
-			Utility.closeJDBCResources(connection, stmt, resultSet);
+			Utility.closeJDBCResources(connection);
+			Utility.closeJDBCResources(stmt);
+			Utility.closeJDBCResources(resultSet);
 		}
 	}
 }
