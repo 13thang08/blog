@@ -1,4 +1,4 @@
-package jp.zyyx.training;
+package jp.zyyx.training.model;
 
 import java.io.FileReader;
 import java.io.FileWriter;

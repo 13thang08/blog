@@ -1,9 +1,11 @@
-package jp.zyyx.training;
+package jp.zyyx.training.utility;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import jp.zyyx.training.model.ArticleService;
 
 import com.opencsv.CSVWriter;
 public class CreateData {

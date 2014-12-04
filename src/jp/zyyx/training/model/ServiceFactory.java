@@ -1,4 +1,4 @@
-package jp.zyyx.training;
+package jp.zyyx.training.model;
 
 /**
  * 適当なサービスを取るためのクラス

@@ -1,4 +1,4 @@
-package jp.zyyx.training;
+package jp.zyyx.training.model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
