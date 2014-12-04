@@ -12,6 +12,6 @@ public class ServiceFactory {
 	 * @return FileDataService または DatabaseService
 	 */
 	public static ArticleService getService() {
-		return new FileDataService();
+		return new DatabaseService();
 	}
 }
