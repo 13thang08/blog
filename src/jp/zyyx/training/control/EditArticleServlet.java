@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import jp.zyyx.training.model.ArticleBean;
 import jp.zyyx.training.model.ArticleService;
 import jp.zyyx.training.model.ServiceFactory;
+import jp.zyyx.training.utility.Utility;
 
 /**
  * Servlet implementation class EditArticleServlet
@@ -34,7 +35,7 @@ public class EditArticleServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String idString = request.getParameter("id");
+		String idString = Utility.preprocessingString(request.getParameter("id"));
 		if (idString != null) {
 			try {
 				int id = Integer.parseInt(idString);
@@ -61,11 +62,11 @@ public class EditArticleServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
-		String title = request.getParameter("title");
-		String content = request.getParameter("content");
+		String title = Utility.preprocessingString(request.getParameter("title"));
+		String content = Utility.preprocessingString(request.getParameter("content"));
 		int id;
 		try {
-			id = Integer.parseInt(request.getParameter("id"));
+			id = Integer.parseInt(Utility.preprocessingString(request.getParameter("id")));
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 			return;
@@ -80,7 +81,7 @@ public class EditArticleServlet extends HttpServlet {
 		article.setId(id);
 		article.setDate(dateString);
 		
-		if (title.trim().length() != 0 && content.trim().length() != 0) {
+		if (title != null && content != null) {
 			ArticleService articleService = ServiceFactory.getService();
 			if (articleService.editArticle(article)) {
 				response.sendRedirect("show-articles");

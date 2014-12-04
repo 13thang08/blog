@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import jp.zyyx.training.model.ArticleService;
 import jp.zyyx.training.model.ServiceFactory;
+import jp.zyyx.training.utility.Utility;
 
 /**
  * Servlet implementation class RemoveArticleServlet
@@ -30,7 +31,7 @@ public class RemoveArticleServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String idString = request.getParameter("id");
+		String idString = Utility.preprocessingString(request.getParameter("id"));
 		try {
 			int id = Integer.parseInt(idString);
 			ArticleService articleService = ServiceFactory.getService();

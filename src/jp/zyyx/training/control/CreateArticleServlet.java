@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import jp.zyyx.training.model.ArticleBean;
 import jp.zyyx.training.model.ArticleService;
 import jp.zyyx.training.model.ServiceFactory;
+import jp.zyyx.training.utility.*;
 
 /**
  * Servlet implementation class CreateArticleServlet
@@ -43,8 +44,8 @@ public class CreateArticleServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		// 新しい記事Beanを作成します
-		String title = request.getParameter("title");
-		String content = request.getParameter("content");
+		String title = Utility.preprocessingString(request.getParameter("title"));
+		String content = Utility.preprocessingString(request.getParameter("content"));
 		DateFormat dateFormat = new SimpleDateFormat(ArticleService.dateFormat);
 		Date date = new Date();
 		String dateString = dateFormat.format(date);
@@ -53,7 +54,7 @@ public class CreateArticleServlet extends HttpServlet {
 		article.setTitle(title);
 		article.setContent(content);
 		
-		if (title.trim().length() != 0 && content.trim().length() != 0) { //　タイトルと内容は正したら
+		if (title != null && content != null) { //　タイトルと内容は正したら
 			ArticleService articleService = ServiceFactory.getService();
 			if (articleService.addArticle(article)) { //　追加は成功したら
 				response.sendRedirect("show-articles");

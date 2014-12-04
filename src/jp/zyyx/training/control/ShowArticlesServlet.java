@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import jp.zyyx.training.model.ArticleService;
 import jp.zyyx.training.model.ArticlesList;
 import jp.zyyx.training.model.ServiceFactory;
+import jp.zyyx.training.utility.Utility;
 
 /**
  * Servlet implementation class ArticleServlet
@@ -32,12 +33,8 @@ public class ShowArticlesServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		String pageString = request.getParameter("page");
-		String searchText = request.getParameter("searchText");
-		
-		if ("".equals(searchText)) {
-			searchText = null;
-		}
+		String pageString = Utility.preprocessingString(request.getParameter("page"));
+		String searchText = Utility.preprocessingString(request.getParameter("searchText"));
 		
 		int page;
 		try {
