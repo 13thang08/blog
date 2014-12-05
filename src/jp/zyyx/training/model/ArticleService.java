@@ -54,4 +54,6 @@ public interface ArticleService {
 	 * @return idがある記事
 	 */
 	public ArticleBean getArticle(int id);
+	
+	public ArticlesCalendar getArticlesCalendar(String yearMonth);
 }

@@ -5,6 +5,11 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Properties;
 
 import jp.zyyx.training.utility.Utility;
@@ -247,6 +252,84 @@ public class DatabaseService implements ArticleService {
 			Utility.closeJDBCResources(connection);
 			Utility.closeJDBCResources(stmt);
 			Utility.closeJDBCResources(resultSet);
+		}
+	}
+
+	@Override
+	public ArticlesCalendar getArticlesCalendar(String yearMonth) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			System.out.println("Cann't load driver!\n");
+			e.printStackTrace();
+			return null;
+		}
+		
+		ArticlesCalendar articlesCalendar = new ArticlesCalendar();
+		Connection con = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		Date date = null;
+		String dateString = null;
+		SimpleDateFormat dateFormat = new SimpleDateFormat(ArticleService.dateFormat);
+		SimpleDateFormat yearMonthFormat = new SimpleDateFormat(ArticlesCalendar.yearMonthFormat);
+		SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
+		SimpleDateFormat monthFormat = new SimpleDateFormat("MM");
+		SimpleDateFormat dayFormat = new SimpleDateFormat("dd");
+		
+		try {
+			con = DriverManager.getConnection(mySqlUrl, userInfo);
+			stmt = con.createStatement();
+			rs = stmt.executeQuery("SELECT MAX(date) FROM articles");
+			
+			if (rs.next()) {
+				dateString = rs.getString(1);
+				date = dateFormat.parse(dateString);
+				articlesCalendar.setLastMonth(yearMonthFormat.format(date));
+			} else {
+				return null;
+			}
+			Utility.closeJDBCResources(rs);
+			
+			rs = stmt.executeQuery("SELECT MIN(date) FROM articles");
+			if (rs.next()) {
+				dateString = rs.getString(1);
+				date = dateFormat.parse(dateString);
+				articlesCalendar.setFirstMonth(yearMonthFormat.format(date));
+			}
+			
+			articlesCalendar.setCurrentMonth(yearMonth);
+			date = yearMonthFormat.parse(yearMonth);
+			int year = Integer.parseInt(yearFormat.format(date));
+			int month = Integer.parseInt(monthFormat.format(date)) - 1; // month value is 0-based
+			Calendar calendar = Calendar.getInstance();
+			calendar.clear();
+			calendar.set(year, month, 1);
+			articlesCalendar.setFirstDayOfWeek(calendar.get(Calendar.DAY_OF_WEEK));
+			calendar.add(Calendar.MONTH, 1);
+			calendar.add(Calendar.DATE, -1);
+			articlesCalendar.setLastDayOfMonth(calendar.get(Calendar.DATE));
+			Utility.closeJDBCResources(rs);
+			
+			
+			rs = stmt.executeQuery("SELECT * FROM articles WHERE date LIKE '" + yearMonth + "%'" );
+			System.out.println(rs);
+			while (rs.next()) {
+				dateString = rs.getString("date");
+				date = dateFormat.parse(dateString);
+				articlesCalendar.addArticleDay(Integer.parseInt(dayFormat.format(date)));
+			}
+			return articlesCalendar;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			Utility.closeJDBCResources(con);
+			Utility.closeJDBCResources(stmt);
+			Utility.closeJDBCResources(rs);
 		}
 	}
 }

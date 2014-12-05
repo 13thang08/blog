@@ -294,4 +294,10 @@ public class FileDataService implements ArticleService {
 			}
 		}
 	}
+
+	@Override
+	public ArticlesCalendar getArticlesCalendar(String yearMonth) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

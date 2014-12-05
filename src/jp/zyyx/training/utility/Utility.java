@@ -33,6 +33,7 @@ public class Utility {
 		try {
 			if (con != null) {
 				con.close();
+				con = null;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -47,6 +48,7 @@ public class Utility {
 		try {
 			if (stmt != null) {
 				stmt.close();
+				stmt = null;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -61,6 +63,7 @@ public class Utility {
 		try {
 			if (rs != null) {
 				rs.close();
+				rs = null;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

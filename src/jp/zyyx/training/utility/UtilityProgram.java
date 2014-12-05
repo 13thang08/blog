@@ -5,25 +5,24 @@ import javax.sql.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Properties;
+
+import jp.zyyx.training.model.ArticleService;
+import jp.zyyx.training.model.ArticlesCalendar;
+import jp.zyyx.training.model.ArticlesList;
+import jp.zyyx.training.model.DatabaseService;
 public class UtilityProgram {
-	public static void main(String[] args) {
-		try {
-			Properties userInfo = new Properties();
-			userInfo.put("user", "root");
-			userInfo.put("password", "123456");
-			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/blog", userInfo);
-			System.out.println("Connection success!\n");
-			String query = "SELECT * FROM articles";
-			Statement statement = connection.createStatement();
-			ResultSet resultSet = statement.executeQuery(query);
-			while (resultSet.next()) {
-				System.out.println(resultSet.getString(1) + resultSet.getString(2) + resultSet.getString(3) + resultSet.getString(4));
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public static void main(String[] args) throws ParseException {
+		SimpleDateFormat yearMonthFormat = new SimpleDateFormat("yyyy-MM");
+		String yearMonth = "2014-12";
+		Date date = yearMonthFormat.parse(yearMonth);
+		System.out.println(date);
+		
+		ArticleService articleService = new DatabaseService();
+		ArticlesCalendar articlesCalendar = articleService.getArticlesCalendar("2014-10");
+		System.out.println(articlesCalendar);
+		
 	}
 }
