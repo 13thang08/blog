@@ -20,7 +20,7 @@
 	<div class="sideBody">
 		<div class="search">
 			<form action="show-articles">
-				<input type="text" name="searchText" value="${articlesList.searchText }" class="search_text">
+				<input type="text" name="searchText" value="${articlesList.searchInfo.searchText }" class="search_text">
 				<input type="submit" value="検索">
 			</form>
 		</div>

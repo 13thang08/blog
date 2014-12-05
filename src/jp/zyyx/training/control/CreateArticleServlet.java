@@ -54,7 +54,7 @@ public class CreateArticleServlet extends HttpServlet {
 		article.setTitle(title);
 		article.setContent(content);
 		
-		if (title != null && content != null) { //　タイトルと内容は正したら
+		if (!"".equals(title) && !"".equals(content)) { //　タイトルと内容は正したら
 			ArticleService articleService = ServiceFactory.getService();
 			if (articleService.addArticle(article)) { //　追加は成功したら
 				response.sendRedirect("show-articles");

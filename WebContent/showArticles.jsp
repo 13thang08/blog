@@ -62,8 +62,10 @@
 			</c:forEach>
 			<!-- end blog's content -->
 			
+			
 			<jsp:include page="pager.jsp" />
-		
+			 
+			 
 		</div>
 		<!-- /content end -->
 		

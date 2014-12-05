@@ -22,7 +22,7 @@ public interface ArticleService {
 	 * @param page 表示したいページ
 	 * @return 検索結果のArticlesListオブジェクト
 	 */
-	public ArticlesList showArticles(String searchText, int page);
+	public ArticlesList showArticles(SearchInfo searchInfo);
 	
 	/**
 	 * 記事データに記事を追加するメソッド

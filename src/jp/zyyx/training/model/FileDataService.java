@@ -22,8 +22,8 @@ public class FileDataService implements ArticleService {
 	 * @return 検索結果のArticlesListオブジェクト
 	 */
 	@Override
-	public ArticlesList showArticles(String searchText, int page) {
-		ArticlesList articlesList = new ArticlesList(searchText, page);
+	public ArticlesList showArticles(SearchInfo searchInfo) {
+		ArticlesList articlesList = new ArticlesList(searchInfo);
 
 		CSVReader reader = null;
 		try {
@@ -40,8 +40,8 @@ public class FileDataService implements ArticleService {
 			while ((nextLine = reader.readNext()) != null) {
 
 				// 記事は表示したいページにあったら
-				if (count >= numArticlesPerPage * (page - 1)
-						&& count < numArticlesPerPage * page) {
+				if (count >= numArticlesPerPage * (searchInfo.getPage() - 1)
+						&& count < numArticlesPerPage * searchInfo.getPage()) {
 					ArticleBean bean = new ArticleBean();
 
 					// エラーハンドリング

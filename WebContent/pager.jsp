@@ -11,12 +11,8 @@
 <%
 articlesList = (ArticlesList) request.getAttribute("articlesList");
 if (articlesList != null && articlesList.getList().size() != 0) {
-	if (articlesList.getSearchText() != null && articlesList.getSearchText().trim().length() != 0) {
-		URLString = "show-articles?searchText=" + articlesList.getSearchText() + "&page=";
-	} else {
-		URLString = "show-articles?page=";
-	}
-	current = articlesList.getPage();
+	URLString = "show-articles?searchText=" + articlesList.getSearchInfo().getSearchText() + "&searchDate=" + articlesList.getSearchInfo().getSearchDate() +"&page=";
+	current = articlesList.getSearchInfo().getPage();
 	total = articlesList.getTotalPage();
 	if (1 <= current && current <= total) {
 		if (total < numPages) {

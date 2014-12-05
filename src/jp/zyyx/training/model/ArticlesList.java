@@ -8,14 +8,10 @@ import java.util.ArrayList;
  *
  */
 public class ArticlesList {
-	/** 表示したいページ*/
-	int page;
+	SearchInfo searchInfo;
 	
 	/** 総ページ */
 	int totalPage;
-	
-	/** 検索ストリング*/
-	String searchText;
 	
 	/** 教示したいリスト*/
 	ArrayList<ArticleBean> list;
@@ -25,9 +21,8 @@ public class ArticlesList {
 	 * @param searchText 検索ストリング
 	 * @param page 表示したいページ
 	 */
-	public ArticlesList(String searchText, int page) {
-		this.searchText = searchText;
-		this.page = page;
+	public ArticlesList(SearchInfo searchInfo) {
+		this.searchInfo = searchInfo;
 		totalPage = 0;
 		list = new ArrayList<ArticleBean>();
 	}
@@ -48,22 +43,10 @@ public class ArticlesList {
 		return list;
 	}
 	
-	/**
-	 * 表示したいページを取るメソッド
-	 * @return ページ
-	 */
-	public int getPage() {
-		return page;
+	public SearchInfo getSearchInfo() {
+		return searchInfo;
 	}
-	
-	/**
-	 * 検索ストリングを取るメソッド
-	 * @return 検索ストリング
-	 */
-	public String getSearchText() {
-		return searchText;
-	}
-	
+
 	/**
 	 * 総ページを取るメソッド
 	 * @return 総ページ

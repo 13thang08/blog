@@ -41,7 +41,7 @@ public class DatabaseService implements ArticleService {
 	 * @return 検索結果のArticlesListオブジェクト
 	 */
 	@Override
-	public ArticlesList showArticles(String searchText, int page) {
+	public ArticlesList showArticles(SearchInfo searchInfo) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
@@ -50,7 +50,7 @@ public class DatabaseService implements ArticleService {
 			return null;
 		}
 		
-		ArticlesList articlesList = new ArticlesList(searchText, page);
+		ArticlesList articlesList = new ArticlesList(searchInfo);
 		String query = null;
 		PreparedStatement stmt = null;
 		Connection connection = null;
@@ -60,15 +60,11 @@ public class DatabaseService implements ArticleService {
 			connection = DriverManager.getConnection(mySqlUrl, userInfo);
 			
 			// get resultSet with searchText
-			if (searchText == null) {
-				query = "SELECT * FROM articles ORDER BY date DESC";
-				stmt = connection.prepareStatement(query);
-			} else {
-				query = "SELECT * FROM articles WHERE title like ? OR content like ? ORDER BY date DESC";
-				stmt = connection.prepareStatement(query);
-				stmt.setString(1, "%" + searchText + "%");
-				stmt.setString(2, "%" + searchText + "%");
-			}
+			query = "SELECT * FROM articles WHERE title like ? OR content like ? AND date like ? ORDER BY date DESC";
+			stmt = connection.prepareStatement(query);
+			stmt.setString(1, "%" + searchInfo.getSearchText() + "%");
+			stmt.setString(2, "%" + searchInfo.getSearchText() + "%");
+			stmt.setString(3, searchInfo.getSearchDate() + "%");
 			
 			System.out.println(stmt.toString());
 			resultSet = stmt.executeQuery();
@@ -76,8 +72,8 @@ public class DatabaseService implements ArticleService {
 			// output ArticlesList from result, using page parameter
 			int count = 0;
 			while (resultSet.next()) {
-				if (count >= numArticlesPerPage * (page - 1)
-						&& count < numArticlesPerPage * page) {
+				if (count >= numArticlesPerPage * (searchInfo.getPage() - 1)
+						&& count < numArticlesPerPage * searchInfo.getPage()) {
 					ArticleBean bean = new ArticleBean();
 					bean.setId(resultSet.getInt("id"));
 					bean.setDate(resultSet.getString("date"));

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import jp.zyyx.training.model.ArticleService;
 import jp.zyyx.training.model.ArticlesList;
+import jp.zyyx.training.model.SearchInfo;
 import jp.zyyx.training.model.ServiceFactory;
 import jp.zyyx.training.utility.Utility;
 
@@ -33,20 +34,22 @@ public class ShowArticlesServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		String pageString = Utility.preprocessingString(request.getParameter("page"));
-		String searchText = Utility.preprocessingString(request.getParameter("searchText"));
+		String pageString = request.getParameter("page");
+		String searchText = request.getParameter("searchText");
+		String searchDate = request.getParameter("searchDate");
 		
-		int page = 0;
+		int page = 1;
 		try {
 			page = Integer.parseInt(pageString);
 		} catch(NumberFormatException e) {
-			page = 1;
+			
 		}
-		if (page < 1)
-			page = 1;
+		
+		SearchInfo searchInfo = new SearchInfo(searchText, page, searchDate);
+		
 		ArticleService articleService = ServiceFactory.getService();
 		ArticlesList articlesList = articleService
-				.showArticles(searchText, page);
+				.showArticles(searchInfo);
 		
 		request.setAttribute("articlesList", articlesList);
 		request.getRequestDispatcher("/showArticles.jsp").forward(request,

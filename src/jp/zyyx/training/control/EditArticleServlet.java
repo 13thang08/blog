@@ -81,7 +81,7 @@ public class EditArticleServlet extends HttpServlet {
 		article.setId(id);
 		article.setDate(dateString);
 		
-		if (title != null && content != null) {
+		if (!"".equals(title) && !"".equals(content)) {
 			ArticleService articleService = ServiceFactory.getService();
 			if (articleService.editArticle(article)) {
 				response.sendRedirect("show-articles");

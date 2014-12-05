@@ -19,12 +19,10 @@ public class Utility {
 	 */
 	public static String preprocessingString (String str) {
 		if (str != null) {
-			str = str.trim();
-			if (str.length() == 0) {
-				str = null;
-			}
+			return str.trim();
+		} else {
+			return "";
 		}
-		return str;
 	}
 	
 	/**
