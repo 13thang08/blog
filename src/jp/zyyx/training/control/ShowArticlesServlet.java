@@ -1,7 +1,6 @@
 package jp.zyyx.training.control;
 
 import java.io.IOException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -16,7 +15,6 @@ import jp.zyyx.training.model.ArticlesCalendar;
 import jp.zyyx.training.model.ArticlesList;
 import jp.zyyx.training.model.SearchInfo;
 import jp.zyyx.training.model.ServiceFactory;
-import jp.zyyx.training.utility.Utility;
 
 /**
  * Servlet implementation class ArticleServlet

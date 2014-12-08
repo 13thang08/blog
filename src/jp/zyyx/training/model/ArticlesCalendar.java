@@ -2,7 +2,6 @@ package jp.zyyx.training.model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.YearMonth;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
