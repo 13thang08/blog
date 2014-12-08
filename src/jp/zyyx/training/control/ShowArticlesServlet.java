@@ -1,6 +1,9 @@
 package jp.zyyx.training.control;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -39,6 +42,18 @@ public class ShowArticlesServlet extends HttpServlet {
 		String searchText = request.getParameter("searchText");
 		String searchDate = request.getParameter("searchDate");
 		String calendar = request.getParameter("calendar");
+		
+		SimpleDateFormat yearMonth = new SimpleDateFormat(ArticlesCalendar.yearMonthFormat);
+		Date tempDate = null;
+		if (calendar == null) {
+			try {
+				tempDate = yearMonth.parse(searchDate);
+			} catch (Exception e) {
+				tempDate = new Date();
+			}
+			calendar = yearMonth.format(tempDate);
+		}
+		
 		
 		int page = 1;
 		try {

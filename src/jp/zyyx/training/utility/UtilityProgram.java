@@ -14,22 +14,20 @@ import jp.zyyx.training.model.ArticlesCalendar;
 import jp.zyyx.training.model.ArticlesList;
 import jp.zyyx.training.model.DatabaseService;
 public class UtilityProgram {
-	public static void main(String[] args) throws ParseException {
+	public static void main(String[] args){
 		SimpleDateFormat yearMonthFormat = new SimpleDateFormat("yyyy-MM");
-		String yearMonth = "2014-12";
-		Date date = yearMonthFormat.parse(yearMonth);
-		System.out.println(date);
-		
-		ArticleService articleService = new DatabaseService();
-		ArticlesCalendar articlesCalendar = articleService.getArticlesCalendar("2014-12");
-		System.out.println(articlesCalendar);
-		
-		int count = 0;
-		
-		for(int i = 0; i < articlesCalendar.getFirstDayOfWeek(); i++) {
-			System.out.println("0");
-			count++;
+		String yearMonth = "2014-12-10";
+		Date date;
+		try {
+			date = yearMonthFormat.parse(null);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		System.out.println("hello");
+		//System.out.println(date);
+		
+
+		
+
 	}
 }
