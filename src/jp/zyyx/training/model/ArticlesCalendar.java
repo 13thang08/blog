@@ -1,5 +1,10 @@
 package jp.zyyx.training.model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.YearMonth;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
 
 public class ArticlesCalendar {
@@ -65,10 +70,56 @@ public class ArticlesCalendar {
 		ret += "Current month: " + currentMonth + "\n";
 		ret += "First day of week: " + firstDayOfWeek + "\n";
 		ret += "Last day of month: " + lastDayOfMonth + "\n";
+		ret += "Rows: " + getRows() + "\n";
 		ret += "Days article: ";
 		for (int day : articleDays) {
 			ret += day + " ";
 		}
 		return ret;
+	}
+	
+	public int getRows() {
+		return (int) Math.ceil((double) (lastDayOfMonth + firstDayOfWeek - 1) / 7);
+	}
+	
+	public String getPreviousMonth() {
+		SimpleDateFormat yearMonth = new SimpleDateFormat(yearMonthFormat);
+		try {
+			Date date = yearMonth.parse(currentMonth);
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(date);
+			calendar.add(Calendar.MONTH, -1);
+			date = calendar.getTime();
+			String previousMonth = yearMonth.format(date);
+			if (previousMonth.compareTo(firstMonth) >= 0 ) {
+				return previousMonth;
+			} else {
+				return null;
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+	
+	public String getNextMonth() {
+		SimpleDateFormat yearMonth = new SimpleDateFormat(yearMonthFormat);
+		try {
+			Date date = yearMonth.parse(currentMonth);
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(date);
+			calendar.add(Calendar.MONTH, 1);
+			date = calendar.getTime();
+			String nextMonth = yearMonth.format(date);
+			if (nextMonth.compareTo(lastMonth) <= 0) {
+				return nextMonth;
+			} else {
+				return null;
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 }

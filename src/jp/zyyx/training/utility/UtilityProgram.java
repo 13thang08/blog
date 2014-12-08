@@ -24,5 +24,12 @@ public class UtilityProgram {
 		ArticlesCalendar articlesCalendar = articleService.getArticlesCalendar("2014-12");
 		System.out.println(articlesCalendar);
 		
+		int count = 0;
+		
+		for(int i = 0; i < articlesCalendar.getFirstDayOfWeek(); i++) {
+			System.out.println("0");
+			count++;
+		}
+		
 	}
 }

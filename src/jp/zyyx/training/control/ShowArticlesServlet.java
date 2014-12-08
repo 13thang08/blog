@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import jp.zyyx.training.model.ArticleService;
+import jp.zyyx.training.model.ArticlesCalendar;
 import jp.zyyx.training.model.ArticlesList;
 import jp.zyyx.training.model.SearchInfo;
 import jp.zyyx.training.model.ServiceFactory;
@@ -52,8 +53,11 @@ public class ShowArticlesServlet extends HttpServlet {
 				.showArticles(searchInfo);
 		
 		request.setAttribute("articlesList", articlesList);
-		request.getRequestDispatcher("/showArticles.jsp").forward(request,
-				response);
+		
+		ArticlesCalendar articlesCalendar = articleService.getArticlesCalendar("2014-12");
+		request.setAttribute("articlesCalendar", articlesCalendar);
+		
+		request.getRequestDispatcher("/showArticles.jsp").forward(request, response);
 
 	}
 

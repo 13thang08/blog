@@ -82,7 +82,7 @@ public class DatabaseService implements ArticleService {
 		
 		try {
 			// get resultSet with searchText
-			query = "SELECT * FROM articles WHERE title like ? OR content like ? AND date like ? ORDER BY date DESC";
+			query = "SELECT * FROM articles WHERE (title like ? OR content like ?) AND date like ? ORDER BY date DESC";
 			stmt = connection.prepareStatement(query);
 			stmt.setString(1, "%" + searchInfo.getSearchText() + "%");
 			stmt.setString(2, "%" + searchInfo.getSearchText() + "%");

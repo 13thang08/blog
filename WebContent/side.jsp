@@ -2,8 +2,10 @@
 <%@ page import="jp.zyyx.training.model.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+
 <!-- side start -->
 <div id="side">
+${articlesCalendar }
 	<div class="sideTitle">プロフィール</div>
 	<div class="sideBody">
 		<p class="profile"><img src="elements/img/profile/momiji.png" /></p>
@@ -33,9 +35,27 @@
 			<td colspan="7">
 				<table border="0" cellpadding="0" cellspacing="0" width="100%" class="calender">
 					<tr>
-						<td align="left"><a href="#">&lt; 前月へ</a></td>
-						<td align="center">2014年4月</td>
-						<td align="right"><a href="#">次月へ &gt;</a></td>
+						<td align="left">
+							<c:choose>
+								<c:when test="${!empty articlesCalendar.previousMonth}">
+									<a href="${articlesCalendar.previousMonth }">&lt; 前月へ</a>
+								</c:when>
+								<c:otherwise>
+									&lt; 前月へ
+								</c:otherwise>
+							</c:choose>
+						</td>
+						<td align="center">${articlesCalendar.currentMonth }</td>
+						<td align="right">
+							<c:choose>
+								<c:when test="${!empty articlesCalendar.nextMonth }">
+									<a href="${articlesCalendar.nextMonth }">次月へ &gt;</a>
+								</c:when>
+								<c:otherwise>
+									次月へ &gt;
+								</c:otherwise>
+							</c:choose>
+						</td>
 					</tr>
 				</table>
 			</td>
@@ -49,51 +69,52 @@
 			<td>金</td>
 			<td>土</td>
 		</tr>
-		<tr align="center" bgcolor="#FFFFFF">
-			<td></td>
-			<td></td>
-			<td>1</td>
-			<td>2</td>
-			<td>3</td>
-			<td>4</td>
-			<td bgcolor="#FFD9D9"><a href="#">5</a></td>
-		</tr>
-		<tr align="center" bgcolor="#FFFFFF">
-			<td bgcolor="#FFD9D9"><a href="#">6</a></td>
-			<td><a href="#">7</a></td>
-			<td><a href="#">8</a></td>
-			<td><a href="#">9</a></td>
-			<td>10</td>
-			<td>11</td>
-			<td bgcolor="#FFD9D9">12</td>
-		</tr>
-		<tr align="center" bgcolor="#FFFFFF">
-			<td bgcolor="#FFD9D9">13</td>
-			<td>14</td>
-			<td>15</td>
-			<td>16</td>
-			<td>17</td>
-			<td>18</td>
-			<td bgcolor="#FFD9D9">19</td>
-		</tr>
-		<tr align="center" bgcolor="#FFFFFF">
-			<td bgcolor="#FFD9D9">20</td>
-			<td>21</td>
-			<td>22</td>
-			<td>23</td>
-			<td>24</td>
-			<td>25</td>
-			<td bgcolor="#FFD9D9">26</td>
-		</tr>
-		<tr align="center" bgcolor="#FFFFFF">
-			<td bgcolor="#FFD9D9">27</td>
-			<td>28</td>
-			<td bgcolor="#FFD9D9">29</td>
-			<td>30</td>
-			<td></td>
-			<td></td>
-			<td></td>
-		</tr>
+			<c:forEach var="i" begin="0" end="${articlesCalendar.rows * 7 - 1 }"
+				step="1">
+
+				<c:if test="${(i % 7) == 0 }">
+					<% out.println("<tr align=\"center\" bgcolor=\"#FFFFFF\">"); %>
+				</c:if>
+				<c:set var="day" value="${i + 2 - articlesCalendar.firstDayOfWeek}"></c:set>
+				<c:choose>
+					<c:when test="${ (day >= 1) && (day <= articlesCalendar.lastDayOfMonth) }">
+						<c:choose>
+							<c:when test="${(i % 7) == 0 || (i % 7) == 6 }">
+								<% out.println("<td bgcolor=\"#FFD9D9\">"); %>
+							</c:when>
+							<c:otherwise>
+								<% out.println("<td>"); %>
+							</c:otherwise>
+						</c:choose>
+
+						<c:set var="contains" value="false"></c:set>
+						<c:forEach var="item" items="${articlesCalendar.articleDays }">
+							<c:if test="${item eq day }">
+								<c:set var="contains" value="true"></c:set>
+							</c:if>
+						</c:forEach>
+
+						<c:choose>
+							<c:when test="${contains}">
+								<a href="show-articles?searchDate=${articlesCalendar.currentMonth }-${day}">${day }</a>
+							</c:when>
+							<c:otherwise>
+								${day }
+							</c:otherwise>
+						</c:choose>
+
+						<% out.println("</td>"); %>
+					</c:when>
+					<c:otherwise>
+						<td></td>
+					</c:otherwise>
+				</c:choose>
+				<c:if test="${(i % 7) == 6 }">
+					<% out.println("</tr>"); %>
+				</c:if>
+
+
+			</c:forEach>
 		</table>
 
 
