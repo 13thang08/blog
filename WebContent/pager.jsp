@@ -42,10 +42,10 @@ if (articlesList != null && articlesList.getList().size() != 0) {
 		<ul>
 			<c:choose>
 				<c:when test="${current == 1 }">
-					<li><span> < 前へ</span></li>
+					<li><span> &lt; 前へ</span></li>
 				</c:when>
 				<c:otherwise>
-					<li><a href="${URLString }${current - 1}">< 前へ</a></li>
+					<li><a href="${URLString }${current - 1}">&lt; 前へ</a></li>
 				</c:otherwise>
 			</c:choose>
 			
