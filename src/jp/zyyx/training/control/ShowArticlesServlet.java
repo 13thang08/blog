@@ -38,6 +38,7 @@ public class ShowArticlesServlet extends HttpServlet {
 		String pageString = request.getParameter("page");
 		String searchText = request.getParameter("searchText");
 		String searchDate = request.getParameter("searchDate");
+		String calendar = request.getParameter("calendar");
 		
 		int page = 1;
 		try {
@@ -54,7 +55,7 @@ public class ShowArticlesServlet extends HttpServlet {
 		
 		request.setAttribute("articlesList", articlesList);
 		
-		ArticlesCalendar articlesCalendar = articleService.getArticlesCalendar("2014-12");
+		ArticlesCalendar articlesCalendar = articleService.getArticlesCalendar(calendar);
 		request.setAttribute("articlesCalendar", articlesCalendar);
 		
 		request.getRequestDispatcher("/showArticles.jsp").forward(request, response);

@@ -271,6 +271,14 @@ public class DatabaseService implements ArticleService {
 		SimpleDateFormat monthFormat = new SimpleDateFormat("MM");
 		SimpleDateFormat dayFormat = new SimpleDateFormat("dd");
 		
+		// check if input yearMonth format is valid
+		try {
+			yearFormat.parse(yearMonth);
+		} catch (Exception e) {
+			Date currentDate = new Date();
+			yearMonth = yearMonthFormat.format(currentDate);
+		}
+		
 		try {
 			stmt = con.createStatement();
 			rs = stmt.executeQuery("SELECT MAX(date) FROM articles");
