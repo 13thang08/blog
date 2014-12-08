@@ -34,7 +34,7 @@ public class RemoveArticleServlet extends HttpServlet {
 		String idString = Utility.preprocessingString(request.getParameter("id"));
 		try {
 			int id = Integer.parseInt(idString);
-			ArticleService articleService = ServiceFactory.getService();
+			ArticleService articleService = ServiceFactory.getService(ApplicationParameter.SERVICE);
 			if (articleService != null) {
 				articleService.removeArticle(id);
 			}

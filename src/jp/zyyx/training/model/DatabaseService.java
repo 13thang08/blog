@@ -27,7 +27,6 @@ public class DatabaseService implements ArticleService {
 	/** データベースにアクセス出来るユーザ情報 */
 	Properties userInfo;
 	
-	
 	/**
 	 * データベースのURLとユーザ情報を初期化
 	 */
@@ -38,6 +37,29 @@ public class DatabaseService implements ArticleService {
 		userInfo.put("password", "123456");
 		
 	}
+	
+	/**
+	 * データベースのコケクションを取る
+	 * @return コケクション
+	 */
+	private Connection getConnection() {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			System.out.println("Cann't load driver!\n");
+			e.printStackTrace();
+			return null;
+		}
+		
+		try {
+			Connection connection = DriverManager.getConnection(mySqlUrl, userInfo);
+			return connection;
+		} catch (SQLException e) {
+			System.out.println("Cann't load driver!\n");
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 	/**
 	 * 記事を表示するメソッド
@@ -47,23 +69,18 @@ public class DatabaseService implements ArticleService {
 	 */
 	@Override
 	public ArticlesList showArticles(SearchInfo searchInfo) {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			System.out.println("Cann't load driver!\n");
-			e.printStackTrace();
+		
+		Connection connection = getConnection();
+		if (connection == null) {
 			return null;
 		}
 		
 		ArticlesList articlesList = new ArticlesList(searchInfo);
 		String query = null;
 		PreparedStatement stmt = null;
-		Connection connection = null;
 		ResultSet resultSet = null;
 		
 		try {
-			connection = DriverManager.getConnection(mySqlUrl, userInfo);
-			
 			// get resultSet with searchText
 			query = "SELECT * FROM articles WHERE title like ? OR content like ? AND date like ? ORDER BY date DESC";
 			stmt = connection.prepareStatement(query);
@@ -111,15 +128,11 @@ public class DatabaseService implements ArticleService {
 	 */
 	@Override
 	public boolean addArticle(ArticleBean article) {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			System.out.println("Cann't load driver!\n");
-			e.printStackTrace();
+		Connection connection = getConnection();
+		if (connection == null) {
 			return false;
 		}
 		
-		Connection connection = null;
 		PreparedStatement stmt = null;
 		try {
 			connection = DriverManager.getConnection(mySqlUrl, userInfo);
@@ -147,18 +160,13 @@ public class DatabaseService implements ArticleService {
 	 */
 	@Override
 	public boolean removeArticle(int id) {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			System.out.println("Cann't load driver!\n");
-			e.printStackTrace();
+		Connection connection = getConnection();
+		if (connection == null) {
 			return false;
 		}
 		
-		Connection connection = null;
 		PreparedStatement stmt = null;
 		try {
-			connection = DriverManager.getConnection(mySqlUrl, userInfo);
 			String query = "DELETE FROM articles WHERE id=?";
 			stmt = connection.prepareStatement(query);
 			stmt.setInt(1, id);
@@ -182,18 +190,13 @@ public class DatabaseService implements ArticleService {
 	 */
 	@Override
 	public boolean editArticle(ArticleBean article) {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			System.out.println("Cann't load driver!\n");
-			e.printStackTrace();
+		Connection connection = getConnection();
+		if (connection == null) {
 			return false;
 		}
 		
-		Connection connection = null;
 		PreparedStatement stmt = null;
 		try {
-			connection = DriverManager.getConnection(mySqlUrl, userInfo);
 			String query = "UPDATE articles SET date=?, title=?, content=? WHERE id=?";
 			stmt = connection.prepareStatement(query);
 			stmt.setString(1, article.getDate());
@@ -218,19 +221,14 @@ public class DatabaseService implements ArticleService {
 	 */
 	@Override
 	public ArticleBean getArticle(int id) {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			System.out.println("Cann't load driver!\n");
-			e.printStackTrace();
+		Connection connection = getConnection();
+		if (connection == null) {
 			return null;
 		}
 		
-		Connection connection = null;
 		PreparedStatement stmt = null;
 		ResultSet resultSet = null;
 		try {
-			connection = DriverManager.getConnection(mySqlUrl, userInfo);
 			String query = "SELECT * FROM articles WHERE id=?";
 			stmt = connection.prepareStatement(query);
 			stmt.setInt(1, id);
@@ -257,16 +255,12 @@ public class DatabaseService implements ArticleService {
 
 	@Override
 	public ArticlesCalendar getArticlesCalendar(String yearMonth) {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			System.out.println("Cann't load driver!\n");
-			e.printStackTrace();
+		Connection con = getConnection();
+		if (con == null) {
 			return null;
 		}
 		
 		ArticlesCalendar articlesCalendar = new ArticlesCalendar();
-		Connection con = null;
 		Statement stmt = null;
 		ResultSet rs = null;
 		Date date = null;
@@ -278,7 +272,6 @@ public class DatabaseService implements ArticleService {
 		SimpleDateFormat dayFormat = new SimpleDateFormat("dd");
 		
 		try {
-			con = DriverManager.getConnection(mySqlUrl, userInfo);
 			stmt = con.createStatement();
 			rs = stmt.executeQuery("SELECT MAX(date) FROM articles");
 			

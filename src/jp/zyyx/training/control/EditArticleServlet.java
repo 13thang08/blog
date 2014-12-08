@@ -39,7 +39,7 @@ public class EditArticleServlet extends HttpServlet {
 		if (idString != null) {
 			try {
 				int id = Integer.parseInt(idString);
-				ArticleService articleService = ServiceFactory.getService();
+				ArticleService articleService = ServiceFactory.getService(ApplicationParameter.SERVICE);
 				ArticleBean article = articleService.getArticle(id);
 				if (article != null) {
 					request.setAttribute("article", article);
@@ -82,7 +82,7 @@ public class EditArticleServlet extends HttpServlet {
 		article.setDate(dateString);
 		
 		if (!"".equals(title) && !"".equals(content)) {
-			ArticleService articleService = ServiceFactory.getService();
+			ArticleService articleService = ServiceFactory.getService(ApplicationParameter.SERVICE);
 			if (articleService.editArticle(article)) {
 				response.sendRedirect("show-articles");
 			} else {

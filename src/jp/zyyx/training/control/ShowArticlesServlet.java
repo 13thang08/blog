@@ -47,7 +47,7 @@ public class ShowArticlesServlet extends HttpServlet {
 		
 		SearchInfo searchInfo = new SearchInfo(searchText, page, searchDate);
 		
-		ArticleService articleService = ServiceFactory.getService();
+		ArticleService articleService = ServiceFactory.getService(ApplicationParameter.SERVICE);
 		ArticlesList articlesList = articleService
 				.showArticles(searchInfo);
 		

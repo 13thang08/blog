@@ -21,7 +21,7 @@ public class UtilityProgram {
 		System.out.println(date);
 		
 		ArticleService articleService = new DatabaseService();
-		ArticlesCalendar articlesCalendar = articleService.getArticlesCalendar("2014-10");
+		ArticlesCalendar articlesCalendar = articleService.getArticlesCalendar("2014-12");
 		System.out.println(articlesCalendar);
 		
 	}
