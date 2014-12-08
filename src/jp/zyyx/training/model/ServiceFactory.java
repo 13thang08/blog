@@ -17,9 +17,9 @@ public class ServiceFactory {
 	public static ArticleService getService(int type) {
 		switch (type) {
 		case MYSQL:
-			return ((ArticleService) new DatabaseService());
+			return new DatabaseService();
 		case FILESYS:
-			return ((ArticleService) new FileDataService());
+			return new FileDataService();
 		default:
 			return null;
 		}
