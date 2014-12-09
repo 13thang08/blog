@@ -37,7 +37,7 @@ if (articlesList != null && articlesList.getList().size() != 0) {
 	}
 }
 %>
-<c:if test="${1 <= current && current <= total }">
+<c:if test="${1 <= current && current <= total && total > 1}">
 	<div class="pager">
 		<ul>
 			<c:choose>
