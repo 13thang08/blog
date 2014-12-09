@@ -8,6 +8,8 @@ import java.util.ArrayList;
  *
  */
 public class ArticlesList {
+	
+	/** 検索情報のオブジェクト */
 	SearchInfo searchInfo;
 	
 	/** 総ページ */

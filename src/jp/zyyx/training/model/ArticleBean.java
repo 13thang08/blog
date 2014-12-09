@@ -27,33 +27,75 @@ public class ArticleBean implements java.io.Serializable {
 	/** 記事の内容 */
 	private String content = null;
 	
+	/**
+	 * コンストラクター
+	 */
 	public ArticleBean() {
 		id = 0;
 		date = null;
 		title = null;
 		content = null;
 	}
+	
+	/**
+	 * id ゲッター
+	 * @return
+	 */
 	public int getId() {
 		return id;
 	}
+	
+	/**
+	 * id セッター
+	 * @param id
+	 */
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	/**
+	 * date ゲッター
+	 * @return
+	 */
 	public String getDate() {
 		return date;
 	}
+	
+	/**
+	 * date セッター
+	 * @param date
+	 */
 	public void setDate(String date) {
 		this.date = date;
 	}
+	
+	/**
+	 * title ゲッター
+	 * @return
+	 */
 	public String getTitle() {
 		return title;
 	}
+	
+	/**
+	 * title セッター
+	 * @param title
+	 */
 	public void setTitle(String title) {
 		this.title = title;
 	}
+	
+	/**
+	 * content ゲッター
+	 * @return
+	 */
 	public String getContent() {
 		return content;
 	}
+	
+	/**
+	 * content セッター
+	 */
 	public void setContent(String content) {
 		this.content = content;
 	}

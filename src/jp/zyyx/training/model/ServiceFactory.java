@@ -6,8 +6,10 @@ package jp.zyyx.training.model;
  *
  */
 public class ServiceFactory {
-	
+	/** MYSQLコンスタント */
 	public static final int MYSQL = 0;
+	
+	/** FILESYSコンスタント */
 	public static final int FILESYS = 1;
 	
 	/**

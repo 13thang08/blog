@@ -253,6 +253,11 @@ public class DatabaseService implements ArticleService {
 		}
 	}
 
+	/**
+	 * 表示したい月のカレンダだーを取る
+	 * @param yearMonth 表示したい年月のストリング
+	 * @return カレンダー
+	 */
 	@Override
 	public ArticlesCalendar getArticlesCalendar(String yearMonth) {
 		Connection con = getConnection();

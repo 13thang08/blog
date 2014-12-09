@@ -55,5 +55,10 @@ public interface ArticleService {
 	 */
 	public ArticleBean getArticle(int id);
 	
+	/**
+	 * 表示したい月のカレンダだーを取る
+	 * @param yearMonth 表示したい年月のストリング
+	 * @return カレンダー
+	 */
 	public ArticlesCalendar getArticlesCalendar(String yearMonth);
 }
