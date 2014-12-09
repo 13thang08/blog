@@ -30,36 +30,46 @@
 			
 			<!-- print blog's content -->
 			
-			<c:forEach var="article" items="${articlesList.list }" varStatus="status">
-				<!-- blog start-->
-				<div class="blog">
-					<!-- blog_title start -->
-					<div class="blogTitle">
-						
-						<div class="entry">
-							<div class="date">${article.date }</div>
-							<div class="editor">
-								<a href="edit-article?id=${article.id}" title="編集"><img src="elements/img/btn/btn_edit.png" alt="編集" border="0" /></a>
-								<a href="remove-article?id=${article.id}" title="削除" onclick="return confirmAction()"><img src="elements/img/btn/btn_delete.png" alt="削除" border="0" /></a>
+			<c:choose>
+				<c:when test="${! empty articlesList.list }">
+					<c:forEach var="article" items="${articlesList.list }" varStatus="status">
+						<!-- blog start-->
+						<div class="blog">
+							<!-- blog_title start -->
+							<div class="blogTitle">
+								
+								<div class="entry">
+									<div class="date">${article.date }</div>
+									<div class="editor">
+										<a href="edit-article?id=${article.id}" title="編集"><img src="elements/img/btn/btn_edit.png" alt="編集" border="0" /></a>
+										<a href="remove-article?id=${article.id}" title="削除" onclick="return confirmAction()"><img src="elements/img/btn/btn_delete.png" alt="削除" border="0" /></a>
+									</div>
+								</div>
+								<h1>
+									<c:out value="${article.title }"></c:out>
+									<c:if test="${article.newArticle }">
+										<span>NEW!</span>
+									</c:if>
+		
+								</h1>
 							</div>
+							<!-- /blog_title end -->
+							
+							<div class="blogBody">
+								${article.contentEscapeHtml }
+							</div>
+							
 						</div>
-						<h1>
-							<c:out value="${article.title }"></c:out>
-							<c:if test="${article.newArticle }">
-								<span>NEW!</span>
-							</c:if>
-
-						</h1>
+						<!-- /blog end-->
+					</c:forEach>				
+				</c:when>
+				<c:otherwise>
+					<div class="errMes">
+					${articlesList.searchInfo.searchText } に該当する記事は見つかりませんでした。
 					</div>
-					<!-- /blog_title end -->
-					
-					<div class="blogBody">
-						${article.contentEscapeHtml }
-					</div>
-					
-				</div>
-				<!-- /blog end-->
-			</c:forEach>
+				</c:otherwise>
+			</c:choose>
+			
 			<!-- end blog's content -->
 			
 			
