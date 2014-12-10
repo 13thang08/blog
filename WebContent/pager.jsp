@@ -45,7 +45,7 @@ if (articlesList != null && articlesList.getList().size() != 0) {
 					<li><span> &lt; 前へ</span></li>
 				</c:when>
 				<c:otherwise>
-					<li><a href="${URLString }${current - 1}">&lt; 前へ</a></li>
+					<li><a href="${URLString }${current - 1}" onclick="return changeContent(this)">&lt; 前へ</a></li>
 				</c:otherwise>
 			</c:choose>
 			
@@ -55,7 +55,7 @@ if (articlesList != null && articlesList.getList().size() != 0) {
 						<li><span class="now">${i }</span></li>
 					</c:when>
 					<c:otherwise>
-						<li><a href="${URLString }${i}">${i }</a></li>
+						<li><a href="${URLString }${i}" onclick="return changeContent(this)">${i }</a></li>
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
@@ -65,7 +65,7 @@ if (articlesList != null && articlesList.getList().size() != 0) {
 					<li><span> 次へ ></span></li>
 				</c:when>
 				<c:otherwise>
-					<li><a href="${URLString }${current + 1 }">次へ ></a></li>
+					<li><a href="${URLString }${current + 1 }" onclick="return changeContent(this)">次へ ></a></li>
 				</c:otherwise>
 			</c:choose>
 		</ul>

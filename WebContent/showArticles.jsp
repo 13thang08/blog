@@ -9,7 +9,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link media="screen" href="elements/css/style.css" type="text/css" rel="stylesheet" />
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="elements/script/side.js"></script>
+<script src="elements/script/script.js"></script>
 <title>記事一覧</title>
 </head>
 
@@ -67,7 +67,9 @@
 				</c:when>
 				<c:otherwise>
 					<div class="errMes">
-					${articlesList.searchInfo.searchText } に該当する記事は見つかりませんでした。
+						<c:if test="${!empty articlesList.searchInfo.searchText }">
+							${articlesList.searchInfo.searchText } に該当する記事は見つかりませんでした。
+						</c:if>
 					</div>
 				</c:otherwise>
 			</c:choose>

@@ -29,7 +29,7 @@
 	
 	<c:if test="${!empty articlesCalendar }">
 		<div class="sideTitle">カレンダー</div>
-		<div class="sideBody">
+		<div class="sideBody" id="calendarID">
 			<table border="0" cellpadding="2" cellspacing="1" bgcolor="#666666" width="100%">
 			<tr align="center" bgcolor="#FFFFFF">
 				<td colspan="7">
@@ -38,7 +38,7 @@
 							<td align="left">
 								<c:choose>
 									<c:when test="${!empty articlesCalendar.previousMonth}">
-										<a href="show-articles?calendar=${articlesCalendar.previousMonth }" onclick="goPreMonth(this);return false">&lt; 前月へ</a>
+										<a href="show-articles?calendar=${articlesCalendar.previousMonth }" onclick="return changeCalendar(this)">&lt; 前月へ</a>
 									</c:when>
 									<c:otherwise>
 										&lt; 前月へ
@@ -49,7 +49,7 @@
 							<td align="right">
 								<c:choose>
 									<c:when test="${!empty articlesCalendar.nextMonth }">
-										<a href="show-articles?calendar=${articlesCalendar.nextMonth }">次月へ &gt;</a>
+										<a href="show-articles?calendar=${articlesCalendar.nextMonth }" onclick="return changeCalendar(this)">次月へ &gt;</a>
 									</c:when>
 									<c:otherwise>
 										次月へ &gt;
@@ -100,7 +100,7 @@
 									<c:if test="${day < 10 }">
 										<c:set var="dayString" value="0${day }"></c:set>
 									</c:if>
-									<a href="show-articles?searchDate=${articlesCalendar.currentMonth }-${dayString}">${day }</a>
+									<a href="show-articles?searchDate=${articlesCalendar.currentMonth }-${dayString}" onclick="return changeContent(this)">${day }</a>
 								</c:when>
 								<c:otherwise>
 									${day }
