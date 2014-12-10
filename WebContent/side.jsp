@@ -38,7 +38,7 @@
 							<td align="left">
 								<c:choose>
 									<c:when test="${!empty articlesCalendar.previousMonth}">
-										<a href="show-articles?calendar=${articlesCalendar.previousMonth }">&lt; 前月へ</a>
+										<a href="show-articles?calendar=${articlesCalendar.previousMonth }" onclick="goPreMonth(this);return false">&lt; 前月へ</a>
 									</c:when>
 									<c:otherwise>
 										&lt; 前月へ
